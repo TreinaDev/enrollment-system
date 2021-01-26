@@ -1,0 +1,23 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 2.7
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - 'bin/**/*'
+    - 'vendor/**/*'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'node_modules/**/*'
+
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/BlockLength:
+  IgnoredMethods: ['describe', 'context', 'feature', 'scenario', 'let']
