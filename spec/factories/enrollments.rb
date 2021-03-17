@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :enrollment do
-    customer { nil }
-    plan { nil }
+    customer
+    plan
   end
 end
