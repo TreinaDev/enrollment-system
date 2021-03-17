@@ -1,0 +1,9 @@
+<% if @plans.empty? %>
+  <p> Não há planos cadastrados </p>
+<% else %>
+  <% @plans.each do |plan| %>
+    <%= plan.name %>
+    <%= plan.montlhy_rate %>
+    <%= plan.monthly_class_limit %>
+  <% end %>
+<% end %>
