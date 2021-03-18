@@ -13,16 +13,24 @@ feature 'Customer choose a plan' do
     visit root_path
     
     within("div#plan-#{first_plan.id}") do
+      expect(page).to have_content('Nome: ')
       expect(page).to have_content(first_plan.name)
+      expect(page).to have_content('Mensalidade: ')
       expect(page).to have_content(first_plan.montlhy_rate)
+      expect(page).to have_content('Quantidade de aulas por mês: ')
       expect(page).to have_content(first_plan.monthly_class_limit)
+      expect(page).to have_content('Aulas abrangidas:')
       expect(page).to have_content('Yoga')
     end
     within("div#plan-#{second_plan.id}") do
+      expect(page).to have_content('Nome:')
       expect(page).to have_content(second_plan.name)
+      expect(page).to have_content('Mensalidade:')
       expect(page).to have_content(second_plan.montlhy_rate)
+      expect(page).to have_content('Quantidade de aulas por mês:')
       expect(page).to have_content(second_plan.monthly_class_limit)
     end
+    expect(page).to have_content('Meios de pagamentos:')
     expect(page).to have_content('Boleto')
     expect(page).to have_content('Cartão de Crédito')
   end
@@ -44,9 +52,13 @@ feature 'Customer choose a plan' do
     visit root_path
     
     within("div#plan-#{plan.id}") do
+      expect(page).to have_content('Nome: ')
       expect(page).to have_content(plan.name)
+      expect(page).to have_content('Mensalidade: ')
       expect(page).to have_content(plan.montlhy_rate)
+      expect(page).to have_content('Quantidade de aulas por mês: ')
       expect(page).to have_content(plan.monthly_class_limit)
+      expect(page).to have_content('Aulas abrangidas: ')
       expect(page).to have_content('Yoga')
     end
     expect(page).to have_content('Não é possível contratar planos agora')

@@ -3,15 +3,22 @@
 <% else %>
   <% @plans.each do |plan| %>
     <div id="plan-<%= plan.id %>">
-      <%= plan.name %>
-      <%= plan.montlhy_rate %>
-      <%= plan.monthly_class_limit %>
-      <% plan.class_categories.each do |cc| %>
-        <%= cc.name %>
-      </div>
+      <dl>
+        <dt>Nome:</dt>
+        <dd><%= plan.name %></dd>
+        <dt>Mensalidade:</dt>
+        <dd><%= plan.montlhy_rate %></dd>
+        <dt>Quantidade de aulas por mês:</dt>
+        <dd><%= plan.monthly_class_limit %></dd>
+        <dt>Aulas abrangidas:</dt>
+        <% plan.class_categories.each do |cc| %>
+          <dd><%= cc.name %></dd>
+        </div>
+      </dl>
     <% end %>
   <% end %>
   <% if @payment_methods.any? %>
+    <p>Meios de pagamentos:</p>
     <% @payment_methods.each do |pm| %>
       <%= pm.name %>
     <% end %>
