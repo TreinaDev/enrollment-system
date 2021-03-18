@@ -3,7 +3,15 @@ module Api
         class CustomersController < ApiController
 
             def create 
-                return render json: {'test': 'funcionou'}.to_json
+                token = Customer.generate_token
+                customer = Customer.create!(
+                    name: params[:name],
+                    cpf: params[:cpf],
+                    birthdate: params[:birthdate],
+                    email: params[:email],
+                    token: token
+                )
+                return render json: { 'token': token }.to_json, status: 200
             end
 
         end
