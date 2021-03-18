@@ -2,8 +2,20 @@
   <p> Não há planos cadastrados </p>
 <% else %>
   <% @plans.each do |plan| %>
-    <%= plan.name %>
-    <%= plan.montlhy_rate %>
-    <%= plan.monthly_class_limit %>
+    <div id="plan-<%= plan.id %>">
+      <%= plan.name %>
+      <%= plan.montlhy_rate %>
+      <%= plan.monthly_class_limit %>
+      <% plan.class_categories.each do |cc| %>
+        <%= cc.name %>
+      </div>
+    <% end %>
+  <% end %>
+  <% if @payment_methods.any? %>
+    <% @payment_methods.each do |pm| %>
+      <%= pm.name %>
+    <% end %>
+  <% else %>
+    <p> Não é possível contratar planos agora </p>
   <% end %>
 <% end %>

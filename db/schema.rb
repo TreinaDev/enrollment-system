@@ -10,12 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_16_210241) do
+ActiveRecord::Schema.define(version: 2021_03_17_223649) do
 
   create_table "class_categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "class_category_plans", force: :cascade do |t|
+    t.integer "class_category_id", null: false
+    t.integer "plan_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["class_category_id"], name: "index_class_category_plans_on_class_category_id"
+    t.index ["plan_id"], name: "index_class_category_plans_on_plan_id"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -55,6 +64,8 @@ ActiveRecord::Schema.define(version: 2021_03_16_210241) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "class_category_plans", "class_categories"
+  add_foreign_key "class_category_plans", "plans"
   add_foreign_key "enrollments", "customers"
   add_foreign_key "enrollments", "plans"
 end
