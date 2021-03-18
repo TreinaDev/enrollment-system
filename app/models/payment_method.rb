@@ -9,7 +9,6 @@ class PaymentMethod
     json_response.map do |r|
       PaymentMethod.new(r)
     end
-    #return payment_methods
   end
 
   def initialize(name:, code:)
