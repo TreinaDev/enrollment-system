@@ -1,5 +1,37 @@
 require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context '#hire_plan!' do
+
+    it 'creates enrollment' do
+      customer = create(:customer)
+      plan = create(:plan)
+
+      customer.hire_plan!(plan)
+
+      expect(customer.enrollment).to be_truthy
+      expect(customer.enrollment.plan).to eq plan
+      expect(customer.enrollment.status).to eq 'active'
+    end
+
+    it 'requires a plan' do
+      customer = create(:customer)
+
+      customer.hire_plan!(nil)
+
+      expect(customer.enrollment.errors.count).to eq 1
+      expect(customer.enrollment.errors.full_messages).to include 'Plan é obrigatório(a)'
+    end
+
+    it 'change plan if already has one' do
+      first_plan = create(:plan)
+      new_plan = create(:plan, name: 'Avançado')
+      customer = create(:customer)
+      enrollment = create(:enrollment, customer: customer, plan: first_plan)
+
+      customer.hire_plan!(new_plan)
+      
+      expect(customer.enrollment.plan).to eq new_plan
+    end
+  end
 end
