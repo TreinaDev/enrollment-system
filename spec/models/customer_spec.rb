@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
   context '#hire_plan!' do
-
     it 'creates enrollment' do
       customer = create(:customer)
       plan = create(:plan)
@@ -27,10 +26,10 @@ RSpec.describe Customer, type: :model do
       first_plan = create(:plan)
       new_plan = create(:plan, name: 'Avançado')
       customer = create(:customer)
-      enrollment = create(:enrollment, customer: customer, plan: first_plan)
+      create(:enrollment, customer: customer, plan: first_plan)
 
       customer.hire_plan!(new_plan)
-      
+
       expect(customer.enrollment.plan).to eq new_plan
     end
   end

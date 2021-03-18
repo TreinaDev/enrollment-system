@@ -4,9 +4,5 @@ class Enrollment < ApplicationRecord
 
   validates :status, presence: true
 
-  enum status: {active: 0, inactive: 10}
-
-
-
-
+  enum status: { active: 0, inactive: 10 }
 end

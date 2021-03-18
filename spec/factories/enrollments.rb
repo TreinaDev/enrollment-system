@@ -2,6 +2,6 @@ FactoryBot.define do
   factory :enrollment do
     customer
     plan
-    status {'active'}
+    status { 'active' }
   end
 end
