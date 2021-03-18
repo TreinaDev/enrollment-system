@@ -3,22 +3,17 @@ class PaymentMethod
 
   def self.all
     response = Faraday.get('paymentmethods.com/v1/api/all')
-    return [] if response.status == 403
     return [] if response.status == 400
     json_response = JSON.parse(response.body, symbolize_names: true)
     payment_methods = []
-    json_response.each do |r|
-      payment_methods << PaymentMethod.new(name: r[:name], code: r[:code])
+    json_response.map do |r|
+      PaymentMethod.new(r)
     end
-    return payment_methods
+    #return payment_methods
   end
 
   def initialize(name:, code:)
     @name = name
     @code = code
-  end
-
-  def self.errors(error)
-    return error
   end
 end
