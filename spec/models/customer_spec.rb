@@ -5,6 +5,11 @@ RSpec.describe Customer, type: :model do
     it 'creates enrollment' do
       customer = create(:customer)
       plan = create(:plan)
+      
+      resp_json = { 'blocked': 'false' }
+      resp_double = double('faraday_response', status: :ok, body: resp_json)
+      allow(Faraday).to receive(:get).with("API/#{customer.cpf}")
+                                    .and_return(resp_double)
 
       customer.hire_plan!(plan)
 
@@ -16,6 +21,10 @@ RSpec.describe Customer, type: :model do
     it 'requires a plan' do
       customer = create(:customer)
 
+      resp_json = { 'blocked': 'false' }
+      resp_double = double('faraday_response', status: :ok, body: resp_json)
+      allow(Faraday).to receive(:get).with("API/#{customer.cpf}")
+                                    .and_return(resp_double)
       customer.hire_plan!(nil)
 
       expect(customer.enrollment.errors.count).to eq 1
@@ -28,9 +37,30 @@ RSpec.describe Customer, type: :model do
       customer = create(:customer)
       create(:enrollment, customer: customer, plan: first_plan)
 
+      resp_json = { 'blocked': 'false' }
+      resp_double = double('faraday_response', status: :ok, body: resp_json)
+      allow(Faraday).to receive(:get).with("API/#{customer.cpf}")
+                                    .and_return(resp_double)
+
       customer.hire_plan!(new_plan)
 
       expect(customer.enrollment.plan).to eq new_plan
+    end
+    
+    it 'does not create if cpf is blocked' do
+      plan = create(:plan)
+      customer = create(:customer)
+      create(:enrollment, customer: customer, plan: plan)
+
+      resp_json = { 'blocked': 'true' }
+      resp_double = double('faraday_response', status: :ok, body: resp_json)
+      allow(Faraday).to receive(:get).with("API/#{customer.cpf}")
+                                    .and_return(resp_double)
+
+      customer.hire_plan!(plan)
+
+      expect(customer.enrollment.inactive?).to eq true
+      expect(customer.enrollment.plan).to eq nil
     end
   end
 end
