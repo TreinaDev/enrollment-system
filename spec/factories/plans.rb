@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :plan do
-    name { "MyString" }
-    montlhy_rate { "9.99" }
-    monthly_class_limit { 1 }
+    name { 'Basico' }
+    montlhy_rate { '100' }
+    monthly_class_limit { 10 }
   end
 end
