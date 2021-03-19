@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :class_category do
-    name { "Crossfit" }
+    name { 'Crossfit' }
   end
 end

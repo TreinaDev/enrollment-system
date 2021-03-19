@@ -5,13 +5,13 @@ feature 'Customer choose a plan' do
     yoga = create(:class_category, name: 'Yoga')
     first_plan = create(:plan, name: 'PlanoFit', montlhy_rate: 200, monthly_class_limit: 5)
     second_plan = create(:plan, name: 'PlanoSmart', montlhy_rate: 300, monthly_class_limit: 7)
-    class_category_plan = create(:class_category_plan, plan: first_plan, class_category: yoga)
+    create(:class_category_plan, plan: first_plan, class_category: yoga)
     ccred = PaymentMethod.new(name: 'Cartão de Crédito', code: 'CCRED')
     bol = PaymentMethod.new(name: 'Boleto', code: 'BOL')
     allow(PaymentMethod).to receive(:all).and_return([ccred, bol])
 
     visit root_path
-    
+
     within("div#plan-#{first_plan.id}") do
       expect(page).to have_content('Nome: ')
       expect(page).to have_content(first_plan.name)
@@ -46,11 +46,11 @@ feature 'Customer choose a plan' do
   scenario 'and show error if payment methods are down' do
     yoga = create(:class_category, name: 'Yoga')
     plan = create(:plan, name: 'PlanoFit', montlhy_rate: 200, monthly_class_limit: 5)
-    class_category_plan = create(:class_category_plan, plan: plan, class_category: yoga)
+    create(:class_category_plan, plan: plan, class_category: yoga)
     allow(PaymentMethod).to receive(:all).and_return([])
 
     visit root_path
-    
+
     within("div#plan-#{plan.id}") do
       expect(page).to have_content('Nome: ')
       expect(page).to have_content(plan.name)
