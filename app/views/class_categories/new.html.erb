@@ -1,0 +1,22 @@
+<h1> Cadastrar categoria de aula </h1>
+<%= form_with model: @class_category do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+  <div>
+    <%= f.label :responsible_teacher %>
+    <%= f.select :responsible_teacher, @responsible_teachers %>
+  </div>
+  <div>
+    <%= f.label 'Ícone da categoria' %>
+    <%= f.file_field :icon %>
+  </div>
+  <div>
+    <%= f.submit 'Cadastrar Categoria de Aula' %>
+  </div>
+<% end %>

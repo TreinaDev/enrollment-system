@@ -1,0 +1,12 @@
+pt-BR:
+  activerecord:
+    models:
+      class_category:
+        one: Categoria de Aulas
+        other: Categorias de Aulas
+    attributes:
+      class_category:
+        name: Nome
+        description: Descrição
+        responsible_teacher: Professor Responsável
+        icon: Ícone da categoria
