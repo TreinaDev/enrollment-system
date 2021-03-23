@@ -1,5 +1,18 @@
 class Customer < ApplicationRecord
+  validates :email, :name, :cpf, :birthdate, :payment_method, presence: true
+  validates :token, :cpf, presence: true, uniqueness: true
   has_one :enrollment, dependent: :restrict_with_error
+
+  def self.generate_token
+    token = new_token
+    token = new_token until Customer.find_by(token: token).nil?
+    token
+  end
+
+  def self.new_token
+    number = [*'a'..'z', *'A'..'Z', *0..9].shuffle.permutation(3)
+    number.next.join
+  end
 
   def hire_plan!(plan)
     if cpf_blocked?
