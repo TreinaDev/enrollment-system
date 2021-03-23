@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :user do
-    # TODO: implement later
+    email { 'user@smartflix.com.br' }
+    password { '123456' }
   end
 end

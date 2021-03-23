@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_17_223649) do
+ActiveRecord::Schema.define(version: 2021_03_17_230216) do
 
   create_table "class_categories", force: :cascade do |t|
     t.string "name"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2021_03_17_223649) do
     t.integer "plan_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "status", default: 0
     t.index ["customer_id"], name: "index_enrollments_on_customer_id"
     t.index ["plan_id"], name: "index_enrollments_on_plan_id"
   end
