@@ -24,4 +24,53 @@ feature 'Admin create class category' do
     expect(page).to have_content('Editar Categoria de Aula')
     expect(page).to have_content('Excluir Categoria de Aula')
   end
+
+  scenario 'and cannot leave fields blank' do
+    allow(PaymentMethod).to receive(:all).and_return([])
+    allow(ResponsibleTeacher).to receive(:all).and_return([])
+
+    visit root_path
+    click_on 'Cadastrar Categoria de Aulas'
+    fill_in 'Nome', with: ''
+    fill_in 'Descrição', with: ''
+    find('form input[type="file"]').set(Rails.root.join('spec','support', 'yoga_icon.jpg'))
+    click_on 'Cadastrar Categoria de Aula'
+
+    expect(page).to have_content('Ocorreram erros durante o cadastro, veja abaixo:')
+    expect(page).to have_content('Nome não pode ficar em branco')
+    expect(page).to have_content('Descrição não pode ficar em branco')
+    expect(page).to have_content('Professor Responsável não pode ficar em branco')
+  end
+
+  scenario 'and atributes must be unique' do
+    allow(PaymentMethod).to receive(:all).and_return([])
+    renato = ResponsibleTeacher.new(name: 'Renato Teixeira')
+    allow(ResponsibleTeacher).to receive(:all).and_return([renato])
+    class_category = create(:class_category, name: 'Yoga', description: 'Aulas para desestressar')
+  
+    visit root_path
+    click_on 'Cadastrar Categoria de Aulas'
+    fill_in 'Nome', with: 'Yoga'
+    fill_in 'Descrição', with: 'Aulas para desestressar'
+    find('form input[type="file"]').set(Rails.root.join('spec','support', 'yoga_icon.jpg'))
+    click_on 'Cadastrar Categoria de Aula'
+
+    expect(page).to have_content('Ocorreram erros durante o cadastro, veja abaixo:')
+    expect(page).to have_content('Nome já está em uso')
+    expect(page).to have_content('Descrição já está em uso')
+  end
+
+  scenario 'and cannot create if classroom API is down' do
+    allow(PaymentMethod).to receive(:all).and_return([])
+    allow(ResponsibleTeacher).to receive(:all).and_return([])
+
+    visit root_path
+    click_on 'Cadastrar Categoria de Aulas'
+    fill_in 'Nome', with: 'Yoga'
+    fill_in 'Descrição', with: 'Aulas para desestressar'
+    find('form input[type="file"]').set(Rails.root.join('spec','support', 'yoga_icon.jpg'))
+
+    expect(page).not_to have_content('Cadastrar Categoria de Aula')
+    expect(page).to have_content('Não podemos cadastrar esta categoria no momento')
+  end
 end
