@@ -1,5 +1,6 @@
 class Customer < ApplicationRecord
-  validates :email, :name, :birthdate, :payment_method, presence: true
+  # TODO: retirar payment_method
+  validates :email, :name, :birthdate, presence: true
   validates :cpf, presence: true, uniqueness: true
   validates :token, presence: true, uniqueness: true
   has_one :enrollment, dependent: :restrict_with_error
@@ -21,8 +22,10 @@ class Customer < ApplicationRecord
                                         poque o CPF informado está bloqueado'
     elsif enrollment
       enrollment.update(plan: plan)
+      Enrollment.approve_payment!(plan: plan, customer: self)
     else
       create_enrollment(plan: plan)
+      Enrollment.approve_payment!(plan: plan, customer: self)
     end
   end
 
