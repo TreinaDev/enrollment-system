@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_19_001458) do
+ActiveRecord::Schema.define(version: 2021_03_24_012052) do
 
   create_table "class_categories", force: :cascade do |t|
     t.string "name"
@@ -50,10 +50,11 @@ ActiveRecord::Schema.define(version: 2021_03_19_001458) do
 
   create_table "plans", force: :cascade do |t|
     t.string "name"
-    t.decimal "montlhy_rate"
+    t.decimal "monthly_rate"
     t.integer "monthly_class_limit"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "description"
   end
 
   create_table "users", force: :cascade do |t|

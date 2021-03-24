@@ -1,1 +1,13 @@
 pt-BR:
+  activerecord:
+    models:
+      plan:
+        one: 'Plano'
+        other: 'Planos'
+    attributes:
+      plan:
+        name: 'Nome'
+        monthly_rate: 'Mensalidade'
+        monthly_class_limit: 'Quantidade de aulas por mês'
+        description: 'Descrição'
+        class_category: 'Categoria(s) de aula'
