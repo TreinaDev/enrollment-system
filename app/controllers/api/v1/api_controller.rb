@@ -1,5 +1,5 @@
 module Api
-  class V1
+  module V1
     class ApiController < ActionController::API
     end
   end
