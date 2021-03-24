@@ -10,4 +10,4 @@ pt-BR:
         monthly_rate: 'Mensalidade'
         monthly_class_limit: 'Quantidade de aulas por mês'
         description: 'Descrição'
-        class_category: 'Categoria(s) de aula'
+        class_categories: 'Categorias de aulas'

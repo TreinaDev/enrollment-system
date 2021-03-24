@@ -1,7 +1,7 @@
 class PlansController < ApplicationController
+  before_action :authenticate_user!, only: %i[:create, :new]
   def new
     @plan = Plan.new
-    @plans = Plan.all
     @categories = ClassCategory.all
   end
 

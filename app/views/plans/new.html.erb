@@ -1,4 +1,9 @@
 <h1>Cadastro de Plano</h1>
+<% if @plan.errors.any? %>
+  <% @plan.errors.full_messages.each do |error| %>
+    <p><%= error %></p>
+  <% end %>
+<% end %>
 
 <%= form_with model: @plan do |f| %>
 <%= f.label :name %>
@@ -14,7 +19,7 @@
 <%= f.number_field :monthly_rate %>
 
 <%= f.label :class_category %>
-<%= f.collection_check_boxes :class_category_ids, @categories, :id, :name %>
+<%= f.collection_check_boxes :class_category_ids, ClassCategory.all, :id, :name %>
 
 <%= f.submit 'Cadastrar Plano' %>
 
