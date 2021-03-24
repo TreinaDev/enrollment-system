@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_19_001458) do
+ActiveRecord::Schema.define(version: 2021_03_23_233922) do
 
   create_table "class_categories", force: :cascade do |t|
     t.string "name"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 2021_03_19_001458) do
     t.string "email"
     t.string "token"
     t.integer "payment_method"
+    t.index ["cpf"], name: "index_customers_on_cpf", unique: true
+    t.index ["token"], name: "index_customers_on_token", unique: true
   end
 
   create_table "enrollments", force: :cascade do |t|
