@@ -60,7 +60,6 @@ describe 'Generate_token' do
     expect(json_response[:message][:cpf]).to include('não pode ficar em branco')
     expect(json_response[:message][:name]).to include('não pode ficar em branco')
     expect(json_response[:message][:birthdate]).to include('não pode ficar em branco')
-    expect(json_response[:message][:payment_method]).to include('não pode ficar em branco')
   end
 end
 

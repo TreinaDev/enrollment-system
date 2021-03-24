@@ -6,7 +6,6 @@ RSpec.describe Customer, type: :model do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:cpf) }
     it { should validate_presence_of(:birthdate) }
-    it { should validate_presence_of(:payment_method) }
 
     it { should validate_uniqueness_of(:cpf) }
     it { should validate_uniqueness_of(:token) }
@@ -63,7 +62,7 @@ RSpec.describe Customer, type: :model do
 
       expect(customer.enrollment).to be_truthy
       expect(customer.enrollment.plan).to eq plan
-      expect(customer.enrollment.status).to eq 'active'
+      expect(customer.enrollment.status).to eq 'inactive'
     end
 
     it 'requires a plan' do
