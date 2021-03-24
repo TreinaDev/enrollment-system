@@ -46,7 +46,7 @@ describe 'Generate_token' do
   end
 
   it 'wrong post returns error message' do
-    # Arrange 
+    # Arrange
 
     # Act
     data = {}
