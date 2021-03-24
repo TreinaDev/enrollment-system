@@ -2,6 +2,9 @@ require 'rails_helper'
 
 feature 'Customer choose a plan' do
   scenario 'successfully' do
+    allow(CurrentUser).to receive(:login).and_return([email: 'renato@smartflix.com',
+                                                    status: 'admin'])
+    CurrentUser.login()
     yoga = create(:class_category, name: 'Yoga')
     first_plan = create(:plan, name: 'PlanoFit', montlhy_rate: 200, monthly_class_limit: 5)
     second_plan = create(:plan, name: 'PlanoSmart', montlhy_rate: 300, monthly_class_limit: 7)
@@ -36,14 +39,19 @@ feature 'Customer choose a plan' do
   end
 
   scenario 'and show error if no plans are found' do
-    payment_methods = []
-    allow(PaymentMethod).to receive(:all).and_return(payment_methods)
+    allow(CurrentUser).to receive(:login).and_return([email: 'renato@smartflix.com',
+                                                    status: 'admin'])
+    CurrentUser.login()
+    allow(PaymentMethod).to receive(:all).and_return([])
     visit root_path
 
     expect(page).to have_content('Não há planos cadastrados')
   end
 
   scenario 'and show error if payment methods are down' do
+    allow(CurrentUser).to receive(:login).and_return([email: 'renato@smartflix.com',
+                                                    status: 'admin'])
+    CurrentUser.login()
     yoga = create(:class_category, name: 'Yoga')
     plan = create(:plan, name: 'PlanoFit', montlhy_rate: 200, monthly_class_limit: 5)
     create(:class_category_plan, plan: plan, class_category: yoga)

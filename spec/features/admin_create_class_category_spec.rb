@@ -2,6 +2,9 @@ require 'rails_helper'
 
 feature 'Admin create class category' do
   scenario 'sucessfully' do
+    allow(CurrentUser).to receive(:login).and_return([email: 'renato@smartflix.com',
+                                                    status: 'admin'])
+    CurrentUser.login()
     allow(PaymentMethod).to receive(:all).and_return([])
     renato = ResponsibleTeacher.new(name: 'Renato Teixeira')
     izabela = ResponsibleTeacher.new(name: 'Izabela Marcondes')
@@ -14,7 +17,7 @@ feature 'Admin create class category' do
     fill_in 'Descrição', with: 'Aulas para desestressar'
     select 'Renato Teixeira', from: 'Professor Responsável'
     find('form input[type="file"]').set(Rails.root.join('spec','support', 'yoga_icon.jpg'))
-    click_on 'Cadastrar Categoria de Aula'
+    click_on 'Cadastrar nova Categoria de Aula'
 
     expect(current_path).to eq class_category_path(ClassCategory.last)
     expect(page).to have_css('img[src*="yoga_icon.jpg"]')
@@ -26,6 +29,9 @@ feature 'Admin create class category' do
   end
 
   scenario 'and cannot leave fields blank' do
+    allow(CurrentUser).to receive(:login).and_return([email: 'renato@smartflix.com',
+                                                    status: 'admin'])
+    CurrentUser.login()
     allow(PaymentMethod).to receive(:all).and_return([])
     allow(ResponsibleTeacher).to receive(:all).and_return([])
 
@@ -34,7 +40,7 @@ feature 'Admin create class category' do
     fill_in 'Nome', with: ''
     fill_in 'Descrição', with: ''
     find('form input[type="file"]').set(Rails.root.join('spec','support', 'yoga_icon.jpg'))
-    click_on 'Cadastrar Categoria de Aula'
+    click_on 'Cadastrar nova Categoria de Aula'
 
     expect(page).to have_content('Ocorreram erros durante o cadastro, veja abaixo:')
     expect(page).to have_content('Nome não pode ficar em branco')
@@ -43,6 +49,9 @@ feature 'Admin create class category' do
   end
 
   scenario 'and atributes must be unique' do
+    allow(CurrentUser).to receive(:login).and_return([email: 'renato@smartflix.com',
+                                                    status: 'admin'])
+    CurrentUser.login()
     allow(PaymentMethod).to receive(:all).and_return([])
     renato = ResponsibleTeacher.new(name: 'Renato Teixeira')
     allow(ResponsibleTeacher).to receive(:all).and_return([renato])
@@ -53,7 +62,7 @@ feature 'Admin create class category' do
     fill_in 'Nome', with: 'Yoga'
     fill_in 'Descrição', with: 'Aulas para desestressar'
     find('form input[type="file"]').set(Rails.root.join('spec','support', 'yoga_icon.jpg'))
-    click_on 'Cadastrar Categoria de Aula'
+    click_on 'Cadastrar nova Categoria de Aula'
 
     expect(page).to have_content('Ocorreram erros durante o cadastro, veja abaixo:')
     expect(page).to have_content('Nome já está em uso')
@@ -61,6 +70,9 @@ feature 'Admin create class category' do
   end
 
   scenario 'and cannot create if classroom API is down' do
+    allow(CurrentUser).to receive(:login).and_return([email: 'renato@smartflix.com',
+                                                    status: 'admin'])
+    CurrentUser.login()
     allow(PaymentMethod).to receive(:all).and_return([])
     allow(ResponsibleTeacher).to receive(:all).and_return([])
 
@@ -70,7 +82,18 @@ feature 'Admin create class category' do
     fill_in 'Descrição', with: 'Aulas para desestressar'
     find('form input[type="file"]').set(Rails.root.join('spec','support', 'yoga_icon.jpg'))
 
-    expect(page).not_to have_content('Cadastrar Categoria de Aula')
+    expect(page).not_to have_content('Cadastrar nova Categoria de Aula')
     expect(page).to have_content('Não podemos cadastrar esta categoria no momento')
+  end
+
+  scenario 'and only admin can create class categories' do
+    allow(PaymentMethod).to receive(:all).and_return([])
+    allow(CurrentUser).to receive(:login).and_return([email: 'renato@flix.com',
+                                                    status: 'user'])
+    current_user = CurrentUser.login()
+
+    visit root_path
+
+    expect(page).not_to have_content('Cadastrar Categoria de Aulas')
   end
 end

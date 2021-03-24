@@ -1,7 +1,11 @@
 class ClassCategoriesController < ApplicationController
   def new
     @class_category = ClassCategory.new
-    get_all_teachers
+    if get_all_teachers.empty?
+      flash[:notice] = 'Não podemos cadastrar esta categoria no momento'
+    else
+      get_all_teachers
+    end
   end
 
   def create
