@@ -10,11 +10,7 @@ class PlansController < ApplicationController
   end
 
   def create
-    plan_params = params.require(:plan).permit(:name,
-                                               :monthly_rate,
-                                               :monthly_class_limit,
-                                               :description,
-                                               class_category_ids: [])
+    
     @plan = Plan.new(plan_params)
     if @plan.save
       redirect_to plan_path(@plan)
@@ -22,4 +18,27 @@ class PlansController < ApplicationController
       render 'new'
     end
   end
+
+  def edit
+    @plan = Plan.find(params[:id])
+  end
+
+  def update
+    @plan = Plan.find(params[:id])
+    if @plan.update(plan_params)
+      redirect_to plan_path(@plan)
+    else
+      render 'edit'
+    end
+  end
+
+  private
+
+  def plan_params
+    params.require(:plan).permit(:name,
+                              :monthly_rate,
+                              :monthly_class_limit,
+                              :description,
+                              class_category_ids: [])
+end
 end

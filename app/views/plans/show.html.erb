@@ -7,3 +7,5 @@
   <% @plan.class_categories.each { |c| names << c.name } %>
   <dd><%= t('.class_categories') %>: <%= names.join(', ') %></dd>
 </div>
+
+<%= link_to 'Editar Plano', edit_plan_path(@plan) %>
