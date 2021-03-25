@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users
   root "home#index"
-  resources :class_categories, only: [:new, :create, :show] 
+  resources :class_categories
 end

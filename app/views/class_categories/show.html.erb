@@ -7,5 +7,5 @@
 <% if @class_category.icon.attached? %>
   <%= image_tag @class_category.icon %>
 <% end %>
-<%= link_to 'Editar Categoria de Aula' %>
-<%= link_to 'Excluir Categoria de Aula' %>
+<%= link_to 'Editar Categoria de Aula', edit_class_category_path(@class_category) %>
+<%= link_to 'Excluir Categoria de Aula', class_category_path(@class_category), method: :delete %>

@@ -2,15 +2,14 @@ require 'rails_helper'
 
 feature 'Admin create class category' do
   scenario 'sucessfully' do
-    allow(CurrentUser).to receive(:login).and_return([email: 'renato@smartflix.com',
-                                                    status: 'admin'])
-    CurrentUser.login()
+    user = User.create!(email: 'renata@smartflix.com.br', password: '123456', role: :admin)
     allow(PaymentMethod).to receive(:all).and_return([])
     renato = ResponsibleTeacher.new(name: 'Renato Teixeira')
     izabela = ResponsibleTeacher.new(name: 'Izabela Marcondes')
     lucas = ResponsibleTeacher.new(name: 'Lucas Praça')
     allow(ResponsibleTeacher).to receive(:all).and_return([renato, izabela, lucas])
 
+    login_as user, scope: :user
     visit root_path
     click_on 'Cadastrar Categoria de Aulas'
     fill_in 'Nome', with: 'Yoga'
@@ -29,12 +28,11 @@ feature 'Admin create class category' do
   end
 
   scenario 'and cannot leave fields blank' do
-    allow(CurrentUser).to receive(:login).and_return([email: 'renato@smartflix.com',
-                                                    status: 'admin'])
-    CurrentUser.login()
+    user = User.create!(email: 'renata@smartflix.com.br', password: '123456', role: :admin)
     allow(PaymentMethod).to receive(:all).and_return([])
     allow(ResponsibleTeacher).to receive(:all).and_return([])
 
+    login_as user, scope: :user
     visit root_path
     click_on 'Cadastrar Categoria de Aulas'
     fill_in 'Nome', with: ''
@@ -49,14 +47,13 @@ feature 'Admin create class category' do
   end
 
   scenario 'and atributes must be unique' do
-    allow(CurrentUser).to receive(:login).and_return([email: 'renato@smartflix.com',
-                                                    status: 'admin'])
-    CurrentUser.login()
+    user = User.create!(email: 'renata@smartflix.com.br', password: '123456', role: :admin)
     allow(PaymentMethod).to receive(:all).and_return([])
     renato = ResponsibleTeacher.new(name: 'Renato Teixeira')
     allow(ResponsibleTeacher).to receive(:all).and_return([renato])
     class_category = create(:class_category, name: 'Yoga', description: 'Aulas para desestressar')
-  
+
+    login_as user, scope: :user
     visit root_path
     click_on 'Cadastrar Categoria de Aulas'
     fill_in 'Nome', with: 'Yoga'
@@ -70,12 +67,11 @@ feature 'Admin create class category' do
   end
 
   scenario 'and cannot create if classroom API is down' do
-    allow(CurrentUser).to receive(:login).and_return([email: 'renato@smartflix.com',
-                                                    status: 'admin'])
-    CurrentUser.login()
+    user = User.create!(email: 'renata@smartflix.com.br', password: '123456', role: :admin)
     allow(PaymentMethod).to receive(:all).and_return([])
     allow(ResponsibleTeacher).to receive(:all).and_return([])
 
+    login_as user, scope: :user
     visit root_path
     click_on 'Cadastrar Categoria de Aulas'
     fill_in 'Nome', with: 'Yoga'
@@ -88,10 +84,8 @@ feature 'Admin create class category' do
 
   scenario 'and only admin can create class categories' do
     allow(PaymentMethod).to receive(:all).and_return([])
-    allow(CurrentUser).to receive(:login).and_return([email: 'renato@flix.com',
-                                                    status: 'user'])
-    current_user = CurrentUser.login()
-
+    user = User.create!(email: 'renato@flix.com.br', password: '123456')
+    login_as user, scope: :user
     visit root_path
 
     expect(page).not_to have_content('Cadastrar Categoria de Aulas')
