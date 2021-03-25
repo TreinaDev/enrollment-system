@@ -1,0 +1,18 @@
+
+
+<% @plans.each do |plan| %>
+  <div style="border: 1px solid black">
+    <ul>
+      <% plan.class_categories.each do |category| %>
+        <li><%= category.name %></li>
+      <% end %>
+    </ul>
+    <%= label_tag "plan_#{plan.id}", plan.name %>
+    <%= radio_button_tag :plan, plan.id %>
+  </div>
+<% end %>
+
+<% @payment_methods.each do |method| %>
+  <%= label_tag "method_#{method.code}", method.name %>
+  <%= radio_button_tag :method, method.code %>
+<% end %>

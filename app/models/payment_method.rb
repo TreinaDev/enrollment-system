@@ -2,7 +2,7 @@ class PaymentMethod
   attr_reader :name, :code
 
   def self.all
-    response = Faraday.get('paymentmethods.com/v1/api/all')
+    response = Faraday.get('http://localhost:5000/api/v1/payment_methods')
 
     return [] if response.status == 400
 

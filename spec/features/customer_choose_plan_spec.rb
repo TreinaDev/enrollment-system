@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Customer choose a plan' do
+feature 'Customer see all plans' do
   scenario 'successfully' do
     yoga = create(:class_category, name: 'Yoga')
     first_plan = create(:plan, name: 'PlanoFit', monthly_rate: 200, monthly_class_limit: 5)
@@ -62,5 +62,24 @@ feature 'Customer choose a plan' do
       expect(page).to have_content('Yoga')
     end
     expect(page).to have_content('Não é possível contratar planos agora')
+  end
+end
+
+feature 'Customer enroll a plan' do
+  scenario 'see the form' do
+    # Arrange
+    customer = create(:customer, token: '123')
+    yoga = create(:class_category, name: 'Yoga')
+    plan = create(:plan, name: 'PlanoFit', monthly_rate: 200, monthly_class_limit: 5)
+    create(:class_category_plan, plan: plan, class_category: yoga)
+    ccred = PaymentMethod.new(name: 'Cartão de Crédito', code: 'CCRED')
+    allow(PaymentMethod).to receive(:all).and_return([ccred])
+    
+    # Act
+    visit new_enrollment_path(token: '123')
+    
+    # Assert
+    expect(page).to have_content(plan.name)
+    expect(page).to have_content(ccred.name)
   end
 end
