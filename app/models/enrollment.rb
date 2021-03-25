@@ -3,8 +3,8 @@ class Enrollment < ApplicationRecord
   belongs_to :plan
 
   enum status: { inactive: 0, pending: 5, active: 10 }
-  
-  # TODO: Implementar método
+
+  # TODO: Implementar metodo
   # def self.approve_payment!(plan, customer)
   #   customer = Enrollment.find_by(customer: customer.id)
   #   data = {

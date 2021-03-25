@@ -6,7 +6,7 @@ describe PaymentMethod do
       resp_json = File.read(Rails.root.join('spec/support/apis/get_payment_methods.json'))
       resp_double = double('faraday_resp', body: resp_json, status: 200)
 
-      allow(Faraday).to receive(:get).with('paymentmethods.com/v1/api/all').and_return(resp_double)
+      allow(Faraday).to receive(:get).with('http://localhost:5000/api/v1/payment_methods').and_return(resp_double)
 
       payment_methods = PaymentMethod.all
 
@@ -20,7 +20,7 @@ describe PaymentMethod do
     it 'should return empty if bad request' do
       resp_double = double('faraday_resp', status: 400, body: '')
 
-      allow(Faraday).to receive(:get).with('paymentmethods.com/v1/api/all').and_return(resp_double)
+      allow(Faraday).to receive(:get).with('http://localhost:5000/api/v1/payment_methods').and_return(resp_double)
 
       payment_methods = PaymentMethod.all
 

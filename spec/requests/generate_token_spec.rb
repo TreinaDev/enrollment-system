@@ -7,7 +7,7 @@ describe 'Generate_token' do
       email: 'teste@teste.com',
       name: 'User',
       cpf: '1234',
-      birthdate: '18/03/2000',
+      birthdate: '18/03/2000'
     }
 
     allow(Customer).to receive(:generate_token).and_return('245')

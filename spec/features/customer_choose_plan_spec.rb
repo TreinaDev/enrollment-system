@@ -68,18 +68,37 @@ end
 feature 'Customer enroll a plan' do
   scenario 'see the form' do
     # Arrange
-    customer = create(:customer, token: '123')
+    create(:customer, token: '123')
     yoga = create(:class_category, name: 'Yoga')
     plan = create(:plan, name: 'PlanoFit', monthly_rate: 200, monthly_class_limit: 5)
     create(:class_category_plan, plan: plan, class_category: yoga)
     ccred = PaymentMethod.new(name: 'Cartão de Crédito', code: 'CCRED')
     allow(PaymentMethod).to receive(:all).and_return([ccred])
-    
+
     # Act
     visit new_enrollment_path(token: '123')
-    
+
     # Assert
     expect(page).to have_content(plan.name)
     expect(page).to have_content(ccred.name)
+  end
+
+  scenario 'fill the form' do
+    # Arrange
+    create(:customer, token: '123')
+    yoga = create(:class_category, name: 'Yoga')
+    plan = create(:plan, name: 'PlanoFit', monthly_rate: 200, monthly_class_limit: 5)
+    create(:class_category_plan, plan: plan, class_category: yoga)
+    ccred = PaymentMethod.new(name: 'Cartão de Crédito', code: 'CCRED')
+    allow(PaymentMethod).to receive(:all).and_return([ccred])
+
+    # Act
+    visit new_enrollment_path(token: '123')
+    choose plan.name
+    choose ccred.name
+    click_on 'Comprar Plano'
+
+    # Assert
+    expect(current_path).to eq(root_path)
   end
 end
