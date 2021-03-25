@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 2021_03_24_012052) do
     t.string "email"
     t.string "token"
     t.integer "payment_method"
+    t.index ["cpf"], name: "index_customers_on_cpf", unique: true
+    t.index ["token"], name: "index_customers_on_token", unique: true
   end
 
   create_table "enrollments", force: :cascade do |t|
