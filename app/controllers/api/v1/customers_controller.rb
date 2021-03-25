@@ -29,7 +29,6 @@ module Api
           name: params[:name],
           cpf: params[:cpf],
           birthdate: params[:birthdate],
-          payment_method: params[:payment_method],
           email: params[:email],
           token: Customer.generate_token
         }

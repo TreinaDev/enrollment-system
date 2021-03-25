@@ -8,7 +8,6 @@ describe 'Generate_token' do
       name: 'User',
       cpf: '1234',
       birthdate: '18/03/2000',
-      payment_method: 1
     }
 
     allow(Customer).to receive(:generate_token).and_return('245')
@@ -30,8 +29,7 @@ describe 'Generate_token' do
       email: 'teste@teste.com',
       name: 'User',
       cpf: '1234',
-      birthdate: '18/03/2000',
-      payment_method: 1
+      birthdate: '18/03/2000'
     }
 
     post '/api/v1/customers', params: data

@@ -1,5 +1,4 @@
 class Customer < ApplicationRecord
-  # TODO: retirar payment_method
   validates :email, :name, :birthdate, presence: true
   validates :cpf, presence: true, uniqueness: true
   validates :token, presence: true, uniqueness: true
