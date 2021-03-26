@@ -15,7 +15,7 @@ feature 'Admin create class category' do
     fill_in 'Nome', with: 'Yoga'
     fill_in 'Descrição', with: 'Aulas para desestressar'
     select 'Renato Teixeira', from: 'Professor Responsável'
-    find('form input[type="file"]').set(Rails.root.join('spec','support', 'yoga_icon.jpg'))
+    find('form input[type="file"]').set(Rails.root.join('spec/support/yoga_icon.jpg'))
     click_on 'Cadastrar nova Categoria de Aula'
 
     expect(current_path).to eq class_category_path(ClassCategory.last)
@@ -37,7 +37,7 @@ feature 'Admin create class category' do
     click_on 'Cadastrar Categoria de Aulas'
     fill_in 'Nome', with: ''
     fill_in 'Descrição', with: ''
-    find('form input[type="file"]').set(Rails.root.join('spec','support', 'yoga_icon.jpg'))
+    find('form input[type="file"]').set(Rails.root.join('spec/support/yoga_icon.jpg'))
     click_on 'Cadastrar nova Categoria de Aula'
 
     expect(page).to have_content('Ocorreram erros durante o cadastro, veja abaixo:')
@@ -51,14 +51,14 @@ feature 'Admin create class category' do
     allow(PaymentMethod).to receive(:all).and_return([])
     renato = ResponsibleTeacher.new(name: 'Renato Teixeira')
     allow(ResponsibleTeacher).to receive(:all).and_return([renato])
-    class_category = create(:class_category, name: 'Yoga', description: 'Aulas para desestressar')
+    create(:class_category, name: 'Yoga', description: 'Aulas para desestressar')
 
     login_as user, scope: :user
     visit root_path
     click_on 'Cadastrar Categoria de Aulas'
     fill_in 'Nome', with: 'Yoga'
     fill_in 'Descrição', with: 'Aulas para desestressar'
-    find('form input[type="file"]').set(Rails.root.join('spec','support', 'yoga_icon.jpg'))
+    find('form input[type="file"]').set(Rails.root.join('spec/support/yoga_icon.jpg'))
     click_on 'Cadastrar nova Categoria de Aula'
 
     expect(page).to have_content('Ocorreram erros durante o cadastro, veja abaixo:')
@@ -76,7 +76,7 @@ feature 'Admin create class category' do
     click_on 'Cadastrar Categoria de Aulas'
     fill_in 'Nome', with: 'Yoga'
     fill_in 'Descrição', with: 'Aulas para desestressar'
-    find('form input[type="file"]').set(Rails.root.join('spec','support', 'yoga_icon.jpg'))
+    find('form input[type="file"]').set(Rails.root.join('spec/support/yoga_icon.jpg'))
 
     expect(page).not_to have_content('Cadastrar nova Categoria de Aula')
     expect(page).to have_content('Não podemos cadastrar esta categoria no momento')

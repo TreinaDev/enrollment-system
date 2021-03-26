@@ -4,11 +4,11 @@ feature 'Admin edit class category' do
   scenario 'Successfully' do
     # Arrange
     allow(PaymentMethod).to receive(:all).and_return([])
-    user = User.create!(email: 'renata@smartflix.com.br', password: '123456', 
+    user = User.create!(email: 'renata@smartflix.com.br', password: '123456',
                         role: :admin)
-    class_category = ClassCategory.create!(name: 'Crossfit', 
-                                           description: 'Fica grande', 
-                                           responsible_teacher: 'Felipe Franco')
+    ClassCategory.create!(name: 'Crossfit',
+                          description: 'Fica grande',
+                          responsible_teacher: 'Felipe Franco')
     renato = ResponsibleTeacher.new(name: 'Renato Teixeira')
     izabela = ResponsibleTeacher.new(name: 'Izabela Marcondes')
     lucas = ResponsibleTeacher.new(name: 'Lucas Praça')
@@ -22,8 +22,7 @@ feature 'Admin edit class category' do
     click_on 'Editar Categoria de Aula'
     fill_in 'Descrição', with: 'Condicionamento físico completo'
     select 'Lucas Praça', from: 'Professor Responsável'
-    find('form input[type="file"]').set(Rails.root.join('spec','support', 
-                                                        'crossfit_icon.jpg'))
+    find('form input[type="file"]').set(Rails.root.join('spec/support/crossfit_icon.jpg'))
     click_on 'Editar Categoria de Aula'
 
     # Assert
@@ -36,13 +35,12 @@ feature 'Admin edit class category' do
   end
 
   scenario 'and atrributes cannot be blank' do
-
     allow(PaymentMethod).to receive(:all).and_return([])
-    user = User.create!(email: 'renata@smartflix.com.br', password: '123456', 
+    user = User.create!(email: 'renata@smartflix.com.br', password: '123456',
                         role: :admin)
-    class_category = ClassCategory.create!(name: 'Crossfit', 
-                                           description: 'Fica grande', 
-                                           responsible_teacher: 'Felipe Franco')
+    ClassCategory.create!(name: 'Crossfit',
+                          description: 'Fica grande',
+                          responsible_teacher: 'Felipe Franco')
     renato = ResponsibleTeacher.new(name: 'Renato Teixeira')
     izabela = ResponsibleTeacher.new(name: 'Izabela Marcondes')
     lucas = ResponsibleTeacher.new(name: 'Lucas Praça')

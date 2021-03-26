@@ -1,18 +1,17 @@
-
 require 'rails_helper'
 
 feature 'Admin delete class category' do
   scenario 'succesfully' do
     # Arrange
     allow(PaymentMethod).to receive(:all).and_return([])
-    user = User.create!(email: 'renata@smartflix.com.br', password: '123456', 
+    user = User.create!(email: 'renata@smartflix.com.br', password: '123456',
                         role: :admin)
-    class_category = ClassCategory.create!(name: 'Crossfit', 
-                                           description: 'Fica grande', 
-                                           responsible_teacher: 'Felipe Franco')
-    another_class_category = ClassCategory.create!(name: 'Yoga', 
-                                           description: 'Tranquilidade', 
-                                           responsible_teacher: 'Mudra')
+    ClassCategory.create!(name: 'Crossfit',
+                          description: 'Fica grande',
+                          responsible_teacher: 'Felipe Franco')
+    ClassCategory.create!(name: 'Yoga',
+                          description: 'Tranquilidade',
+                          responsible_teacher: 'Mudra')
 
     # Act
     login_as user, scope: :user
