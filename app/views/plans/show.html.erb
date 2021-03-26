@@ -8,4 +8,7 @@
   <dd><%= t('.class_categories') %>: <%= names.join(', ') %></dd>
 </div>
 
-<%= link_to 'Editar Plano', edit_plan_path(@plan) %>
+<% if user_signed_in? %>
+  <%= link_to 'Editar Plano', edit_plan_path(@plan) %>
+  <%= link_to 'Excluir Plano', plan_path(@plan), method: :delete %>
+<% end %>

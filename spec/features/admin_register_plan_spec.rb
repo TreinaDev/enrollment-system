@@ -31,11 +31,11 @@ feature 'Admin register a plan' do
     crossfit = create(:class_category, name: 'Crossfit')
     yoga = create(:class_category, name: 'Yoga')
     allow(PaymentMethod).to receive(:all).and_return([])
-    plan = Plan.create(name: 'Fit', 
-                      description: 'Ideal para quem está começando', 
-                      monthly_rate: 9.99, 
-                      monthly_class_limit:10, 
-                      class_categories: [crossfit, yoga])
+    plan = Plan.create(name: 'Fit',
+                       description: 'Ideal para quem está começando',
+                       monthly_rate: 9.99,
+                       monthly_class_limit: 10,
+                       class_categories: [crossfit, yoga])
     visit root_path
     click_on 'Fit'
 

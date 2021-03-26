@@ -4,9 +4,9 @@ feature 'Admin edit a plan' do
   scenario 'successfully' do
     allow(PaymentMethod).to receive(:all).and_return([])
     yoga = create(:class_category, name: 'Yoga')
-    crossfit = create(:class_category, name: 'Crossfit')
+    create(:class_category, name: 'Crossfit')
     plan = create(:plan, name: 'Basico', monthly_rate: '100', monthly_class_limit: 10,
-                          description: 'Ideal para iniciantes', class_categories: [yoga])
+                         description: 'Ideal para iniciantes', class_categories: [yoga])
     admin = create(:user)
     login_as admin, scope: :user
     visit root_path
@@ -31,9 +31,8 @@ feature 'Admin edit a plan' do
   scenario 'and cannot be blank' do
     allow(PaymentMethod).to receive(:all).and_return([])
     yoga = create(:class_category, name: 'Yoga')
-    crossfit = create(:class_category, name: 'Crossfit')
     plan = create(:plan, name: 'Basico', monthly_rate: '100', monthly_class_limit: 10,
-                          description: 'Ideal para iniciantes', class_categories: [yoga])
+                         description: 'Ideal para iniciantes', class_categories: [yoga])
     admin = create(:user)
     login_as admin, scope: :user
     visit root_path
@@ -50,5 +49,64 @@ feature 'Admin edit a plan' do
     expect(page).to have_content('Mensalidade não pode ficar em branco')
     expect(page).to have_content('Quantidade de aulas por mês não pode ficar em branco')
     expect(page).to have_content('Descrição não pode ficar em branco')
+  end
+
+  scenario 'and name must be unique' do
+    allow(PaymentMethod).to receive(:all).and_return([])
+    yoga = create(:class_category, name: 'Yoga')
+    basic_plan = create(:plan, name: 'Basico', monthly_rate: '100', monthly_class_limit: 10,
+                               description: 'Ideal para iniciantes', class_categories: [yoga])
+    create(:plan, name: 'Fit', monthly_rate: '9.99', monthly_class_limit: 20,
+                  description: 'Ideal para iniciantes', class_categories: [yoga])
+    admin = create(:user)
+    login_as admin, scope: :user
+    visit root_path
+
+    click_on basic_plan.name
+    click_on 'Editar Plano'
+    fill_in 'Nome', with: 'Fit'
+    click_on 'Editar Plano'
+
+    expect(page).to have_content('Nome já está em uso')
+  end
+
+  scenario 'and monthly_rate and monthly_class_limit must be greater than 0' do
+    allow(PaymentMethod).to receive(:all).and_return([])
+    yoga = create(:class_category, name: 'Yoga')
+    basic_plan = create(:plan, name: 'Basico', monthly_rate: '100', monthly_class_limit: 10,
+                               description: 'Ideal para iniciantes', class_categories: [yoga])
+
+    admin = create(:user)
+    login_as admin, scope: :user
+    visit root_path
+
+    click_on basic_plan.name
+    click_on 'Editar Plano'
+    fill_in 'Mensalidade', with: 0
+    fill_in 'Quantidade de aulas por mês', with: 0
+    click_on 'Editar Plano'
+
+    expect(page).to have_content('Mensalidade deve ser maior que 0')
+    expect(page).to have_content('Quantidade de aulas por mês deve ser maior que 0')
+  end
+
+  scenario 'and monthly_rate and monthly_class_limit must be greater than 0' do
+    allow(PaymentMethod).to receive(:all).and_return([])
+    yoga = create(:class_category, name: 'Yoga')
+    basic_plan = create(:plan, name: 'Basico', monthly_rate: '100', monthly_class_limit: 10,
+                               description: 'Ideal para iniciantes', class_categories: [yoga])
+
+    admin = create(:user)
+    login_as admin, scope: :user
+    visit root_path
+
+    click_on basic_plan.name
+    click_on 'Editar Plano'
+    fill_in 'Mensalidade', with: 'zero'
+    fill_in 'Quantidade de aulas por mês', with: 'dois'
+    click_on 'Editar Plano'
+
+    expect(page).to have_content('Mensalidade não é um número')
+    expect(page).to have_content('Quantidade de aulas por mês não é um número')
   end
 end
