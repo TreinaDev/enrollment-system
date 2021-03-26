@@ -7,7 +7,7 @@ feature 'Admin delete class category' do
     user = create(:user)
     create(:class_category)
     create(:class_category, name: 'Yoga', description: 'Tranquilidade',
-           responsible_teacher: 'Mudra')
+                            responsible_teacher: 'Mudra')
 
     # Act
     login_as user, scope: :user
