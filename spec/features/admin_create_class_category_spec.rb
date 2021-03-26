@@ -90,4 +90,14 @@ feature 'Admin create class category' do
 
     expect(page).not_to have_content('Cadastrar Categoria de Aulas')
   end
+
+  scenario 'and common user cannot access from path' do
+    allow(PaymentMethod).to receive(:all).and_return([])
+    user = create(:user, :user)
+    login_as user, scope: :user
+
+    visit class_categories_path
+
+    expect(current_path).to eq root_path
+  end
 end
