@@ -1,5 +1,13 @@
 <h1>Comprar plano</h1>
 
+<% if @enrollment.errors.any? %>
+  <div>
+    <% @enrollment.errors.full_messages.each do |error| %>
+      <p><%= error %></p>
+    <% end %>
+  </div>
+<% end %>
+
 <%= form_with url: enrollments_path, method: :post do %>
   <% label_tag :customer %>
   <%= hidden_field_tag :customer, @customer.token %>

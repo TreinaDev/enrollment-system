@@ -1,1 +1,7 @@
 pt-BR:
+  activerecord:
+    attributes:
+      enrollment:
+        payment_method: Método de pagamento
+        plan: Plano
+        customer: Aluno

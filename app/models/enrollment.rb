@@ -3,6 +3,8 @@ class Enrollment < ApplicationRecord
   belongs_to :plan
 
   enum status: { inactive: 0, pending: 5, active: 10 }
+  
+  validates :payment_method, presence: true
 
   # TODO: Implementar metodo
   # def self.approve_payment!(plan, customer)

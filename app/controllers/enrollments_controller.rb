@@ -13,11 +13,12 @@ class EnrollmentsController < ApplicationController
       # TODO: enviar mensagem para sistema de aulas
       redirect_to root_path
     else
-      @customer = Customer.find_by(token: params[:token])
+      @customer = @enrollment.customer
       @plans = Plan.all
       @payment_methods = PaymentMethod.all
       render :new
     end
+
   end
 
   private
@@ -25,7 +26,7 @@ class EnrollmentsController < ApplicationController
   def allowed_params
     {
       customer: Customer.find_by(token: params[:customer]),
-      plan: Plan.find(params[:plan]),
+      plan: Plan.find_by(id: params[:plan]),
       payment_method: params[:method]
     }
   end
