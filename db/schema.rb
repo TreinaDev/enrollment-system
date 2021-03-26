@@ -65,6 +65,11 @@ ActiveRecord::Schema.define(version: 2021_03_25_235214) do
     t.date "birthdate"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "email"
+    t.string "token"
+    t.integer "payment_method"
+    t.index ["cpf"], name: "index_customers_on_cpf", unique: true
+    t.index ["token"], name: "index_customers_on_token", unique: true
   end
 
   create_table "enrollments", force: :cascade do |t|
@@ -72,6 +77,7 @@ ActiveRecord::Schema.define(version: 2021_03_25_235214) do
     t.integer "plan_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "status", default: 0
     t.index ["customer_id"], name: "index_enrollments_on_customer_id"
     t.index ["plan_id"], name: "index_enrollments_on_plan_id"
   end
