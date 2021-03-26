@@ -1,5 +1,6 @@
 class PlansController < ApplicationController
   before_action :authenticate_user!, only: %i[create new]
+
   def new
     @plan = Plan.new
     @categories = ClassCategory.all
@@ -7,6 +8,7 @@ class PlansController < ApplicationController
 
   def show
     @plan = Plan.find(params[:id])
+    @@url_token = params[:token]
   end
 
   def create
@@ -36,6 +38,17 @@ class PlansController < ApplicationController
     @plan.destroy
     flash[:notice] = 'Plano deletado com sucesso'
     redirect_to root_path
+  end
+
+  def buy
+    @plan = Plan.find(params[:id])
+    @customer = Customer.find_by(token: @@url_token)
+    if @customer.nil?
+      render 'show'
+    else
+      @customer.hire_plan!(@plan)
+      redirect_to 'https://localhost:4000/customer'
+    end
   end
 
   private

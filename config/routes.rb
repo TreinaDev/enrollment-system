@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   devise_for :users
   root "home#index"
 
-  resources :plans, only: %i[ new create show edit update destroy ]
+  resources :plans, only: %i[ new create show edit update destroy ] do
+    member do
+      post 'buy'
+    end
+  end
 
   namespace 'api', defaults: { format: :json } do
     namespace 'v1' do
