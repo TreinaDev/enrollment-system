@@ -1,29 +1,27 @@
 class ClassCategoriesController < ApplicationController
-  before_action :find_class_category, only: %i[edit update show destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_admin!
+  before_action :define_class_category, only: %i[edit update show destroy]
+  before_action :all_teachers, only: %i[edit]
   def index
     @class_categories = ClassCategory.all
   end
 
-  def edit
-    all_teachers
-  end
+  def edit; end
 
   def update
     if @class_category.update(class_category_params)
-      flash[:notice] = 'Categoria de Aula editada com sucesso.'
-      redirect_to class_category_path(class_category_params)
+      redirect_to class_category_path(class_category_params), notice: t('.success')
     else
       all_teachers
-      flash[:notice] = 'Ocorreram erros durante a edição, veja abaixo:'
-      render 'edit'
+      flash.now[:notice] = t('.error')
+      render('edit')
     end
   end
 
   def new
     @class_category = ClassCategory.new
     if all_teachers.empty?
-      flash[:notice] = 'Não podemos cadastrar esta categoria no momento'
+      flash.now[:notice] = t('.error')
     else
       all_teachers
     end
@@ -35,7 +33,7 @@ class ClassCategoriesController < ApplicationController
     if @class_category.save
       redirect_to class_category_path(@class_category)
     else
-      flash[:notice] = 'Ocorreram erros durante o cadastro, veja abaixo:'
+      flash.now[:notice] = t('.error')
       all_teachers
       render :new
     end
@@ -45,9 +43,7 @@ class ClassCategoriesController < ApplicationController
 
   def destroy
     @class_category.destroy
-
-    flash[:notice] = 'Categoria excluida com sucesso'
-    redirect_to class_categories_path
+    redirect_to class_categories_path, notice: t('.success')
   end
 
   private
@@ -60,7 +56,11 @@ class ClassCategoriesController < ApplicationController
     @responsible_teachers = ResponsibleTeacher.all.map(&:name)
   end
 
-  def find_class_category
+  def define_class_category
     @class_category = ClassCategory.find(params[:id])
+  end
+
+  def authenticate_admin!
+    current_user&.admin?
   end
 end

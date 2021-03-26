@@ -4,11 +4,8 @@ feature 'Admin edit class category' do
   scenario 'Successfully' do
     # Arrange
     allow(PaymentMethod).to receive(:all).and_return([])
-    user = User.create!(email: 'renata@smartflix.com.br', password: '123456',
-                        role: :admin)
-    ClassCategory.create!(name: 'Crossfit',
-                          description: 'Fica grande',
-                          responsible_teacher: 'Felipe Franco')
+    user = create(:user)
+    create(:class_category)
     renato = ResponsibleTeacher.new(name: 'Renato Teixeira')
     izabela = ResponsibleTeacher.new(name: 'Izabela Marcondes')
     lucas = ResponsibleTeacher.new(name: 'Lucas Praça')
@@ -36,11 +33,8 @@ feature 'Admin edit class category' do
 
   scenario 'and atrributes cannot be blank' do
     allow(PaymentMethod).to receive(:all).and_return([])
-    user = User.create!(email: 'renata@smartflix.com.br', password: '123456',
-                        role: :admin)
-    ClassCategory.create!(name: 'Crossfit',
-                          description: 'Fica grande',
-                          responsible_teacher: 'Felipe Franco')
+    user = create(:user)
+    create(:class_category)
     renato = ResponsibleTeacher.new(name: 'Renato Teixeira')
     izabela = ResponsibleTeacher.new(name: 'Izabela Marcondes')
     lucas = ResponsibleTeacher.new(name: 'Lucas Praça')
@@ -60,7 +54,7 @@ feature 'Admin edit class category' do
 
   scenario 'and only admin can edit class categories' do
     allow(PaymentMethod).to receive(:all).and_return([])
-    user = User.create!(email: 'renato@flix.com.br', password: '123456')
+    user = create(:user, :user)
     login_as user, scope: :user
     visit root_path
 

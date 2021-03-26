@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Admin create class category' do
   scenario 'sucessfully' do
-    user = User.create!(email: 'renata@smartflix.com.br', password: '123456', role: :admin)
+    user = create(:user)
     allow(PaymentMethod).to receive(:all).and_return([])
     renato = ResponsibleTeacher.new(name: 'Renato Teixeira')
     izabela = ResponsibleTeacher.new(name: 'Izabela Marcondes')
@@ -28,7 +28,7 @@ feature 'Admin create class category' do
   end
 
   scenario 'and cannot leave fields blank' do
-    user = User.create!(email: 'renata@smartflix.com.br', password: '123456', role: :admin)
+    user = create(:user)
     allow(PaymentMethod).to receive(:all).and_return([])
     allow(ResponsibleTeacher).to receive(:all).and_return([])
 
@@ -47,7 +47,7 @@ feature 'Admin create class category' do
   end
 
   scenario 'and atributes must be unique' do
-    user = User.create!(email: 'renata@smartflix.com.br', password: '123456', role: :admin)
+    user = create(:user)
     allow(PaymentMethod).to receive(:all).and_return([])
     renato = ResponsibleTeacher.new(name: 'Renato Teixeira')
     allow(ResponsibleTeacher).to receive(:all).and_return([renato])
@@ -67,7 +67,7 @@ feature 'Admin create class category' do
   end
 
   scenario 'and cannot create if classroom API is down' do
-    user = User.create!(email: 'renata@smartflix.com.br', password: '123456', role: :admin)
+    user = create(:user)
     allow(PaymentMethod).to receive(:all).and_return([])
     allow(ResponsibleTeacher).to receive(:all).and_return([])
 
@@ -84,7 +84,7 @@ feature 'Admin create class category' do
 
   scenario 'and only admin can create class categories' do
     allow(PaymentMethod).to receive(:all).and_return([])
-    user = User.create!(email: 'renato@flix.com.br', password: '123456')
+    user = create(:user, :user)
     login_as user, scope: :user
     visit root_path
 
