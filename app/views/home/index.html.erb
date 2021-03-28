@@ -26,3 +26,7 @@
     <p> Não é possível contratar planos agora </p>
   <% end %>
 <% end %>
+<% if current_user.admin? %>
+  <%= link_to 'Cadastrar Categoria de Aulas', new_class_category_path %>
+  <%= link_to 'Categorias de Aula', class_categories_path %>
+<% end %>
