@@ -4,6 +4,9 @@ pt-BR:
       plan:
         one: 'Plano'
         other: 'Planos'
+      class_category:
+        one: Categoria de Aulas
+        other: Categorias de Aulas
     attributes:
       plan:
         name: 'Nome'
@@ -11,3 +14,18 @@ pt-BR:
         monthly_class_limit: 'Quantidade de aulas por mês'
         description: 'Descrição'
         class_categories: 'Categorias de aulas'
+      class_category:
+        name: Nome
+        description: Descrição
+        responsible_teacher: Professor Responsável
+        icon: Ícone da categoria
+  class_categories:
+    new:
+      error: 'Não podemos cadastrar esta categoria no momento'
+    create:
+      error: 'Ocorreram erros durante o cadastro, veja abaixo:'
+    update:
+      success: Categoria de Aula editada com sucesso.
+      error: 'Ocorreram erros durante a edição, veja abaixo:' 
+    destroy:
+      success: 'Categoria excluida com sucesso'
