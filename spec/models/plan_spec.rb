@@ -20,7 +20,7 @@ describe Plan do
       expect(plan.errors[:name]).to include 'já está em uso'
     end
     it 'monthly rate must be greater than 0' do
-      yoga = create(:class_category, name: 'Yoga')
+      yoga = create(:class_category, name: 'Yoga', description: 'Balanço e flexibilidade')
       crossfit = create(:class_category, name: 'Crossfit')
       plan = Plan.create(name: 'Fit',
                          description: 'Ideal para quem está começando',
@@ -31,7 +31,7 @@ describe Plan do
       expect(Plan.all.count).to eq 0
     end
     it 'monthly class limit must be greater than 0' do
-      yoga = create(:class_category, name: 'Yoga')
+      yoga = create(:class_category, name: 'Yoga', description: 'Balanço e flexibilidade')
       crossfit = create(:class_category, name: 'Crossfit')
       plan = Plan.create(name: 'Fit',
                          description: 'Ideal para quem está começando',

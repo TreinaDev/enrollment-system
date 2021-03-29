@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Admin register a plan' do
   scenario 'successfully' do
     crossfit = create(:class_category, name: 'Crossfit')
-    yoga = create(:class_category, name: 'Yoga')
+    yoga = create(:class_category, name: 'Yoga', description: 'Balanço e flexibilidade')
     allow(PaymentMethod).to receive(:all).and_return([])
 
     admin = create(:user)
@@ -29,13 +29,16 @@ feature 'Admin register a plan' do
 
   scenario 'and views plan details' do
     crossfit = create(:class_category, name: 'Crossfit')
-    yoga = create(:class_category, name: 'Yoga')
+    yoga = create(:class_category, name: 'Yoga', description: 'Balanço e flexibilidade')
     allow(PaymentMethod).to receive(:all).and_return([])
     plan = Plan.create(name: 'Fit',
                        description: 'Ideal para quem está começando',
                        monthly_rate: 9.99,
                        monthly_class_limit: 10,
                        class_categories: [crossfit, yoga])
+
+    admin = create(:user)
+    login_as admin, scope: :user
     visit root_path
     click_on 'Fit'
 

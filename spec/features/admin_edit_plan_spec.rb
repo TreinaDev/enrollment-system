@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Admin edit a plan' do
   scenario 'successfully' do
     allow(PaymentMethod).to receive(:all).and_return([])
-    yoga = create(:class_category, name: 'Yoga')
+    yoga = create(:class_category, name: 'Yoga', description: 'Balanço e flexibilidade')
     create(:class_category, name: 'Crossfit')
     plan = create(:plan, name: 'Basico', monthly_rate: '100', monthly_class_limit: 10,
                          description: 'Ideal para iniciantes', class_categories: [yoga])
