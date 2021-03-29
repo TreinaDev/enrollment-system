@@ -103,8 +103,8 @@ $ rails db:seed
 
 ## Desenvolvedores/Contribuintes :octocat:
 
-| [<img src="https://avatars.githubusercontent.com/u/45540147?v=4" width=115><br><sub>Lucas Sanches</sub>](https://github.com/sancheslz) |  [<img src="https://avatars.githubusercontent.com/u/74281572?v=4" width=115><br><sub>Leticia Oliveira</sub>](https://github.com/leticiaoliveira5) |  [<img src="https://avatars.githubusercontent.com/u/72029258?v=4" width=115><br><sub>Helio Matsubaya</sub>](https://github.com/Matsubayashi-Helio) | [<img src="https://avatars.githubusercontent.com/u/19741423?v=4" width=115><br><sub>Filipe Pinato</sub>](https://github.com/tiofih) | [<img src="https://avatars.githubusercontent.com/u/70206232?v=4" width=115><br><sub>Julia Jubileu</sub>](https://github.com/JuliaJubileu) |
-| :---: | :---: | :---: 
+| [<img src="https://avatars.githubusercontent.com/u/45540147?v=4" width=115><br><sub>Lucas Sanches</sub>](https://github.com/sancheslz) |  [<img src="https://avatars.githubusercontent.com/u/74281572?v=4" width=115><br><sub>Leticia Oliveira</sub>](https://github.com/leticiaoliveira5) |  [<img src="https://avatars.githubusercontent.com/u/72029258?v=4" width=115><br><sub>Helio Matsubaya</sub>](https://github.com/Matsubayashi-Helio) | [<img src="https://avatars.githubusercontent.com/u/19741423?v=4" width=115><br><sub>Filipe Pinato</sub>](https://github.com/tiofih) |  [<img src="https://avatars.githubusercontent.com/u/70206232?v=4" width=115><br><sub>Julia Jubileu</sub>](https://github.com/JuliaJubileu) |  [<img src="https://avatars.githubusercontent.com/u/5360344?v=4" width=115><br><sub>Murilo Miranda</sub>]() |
+| :---: | :---: | :---: | :---: | :---: | :---: 
 
 ## Licença 
 
