@@ -84,8 +84,8 @@ feature 'Admin create class category' do
 
   scenario 'and only admin can create class categories' do
     allow(PaymentMethod).to receive(:all).and_return([])
-    user = create(:user, :user)
-    login_as user, scope: :user
+    user = create(:user, email: 'julia@flix.com.br')
+    login_as user
     visit root_path
 
     expect(page).not_to have_content('Cadastrar Categoria de Aulas')
@@ -93,8 +93,8 @@ feature 'Admin create class category' do
 
   scenario 'and common user cannot access from path' do
     allow(PaymentMethod).to receive(:all).and_return([])
-    user = create(:user, :user)
-    login_as user, scope: :user
+    user = create(:user, email: 'julia@flix.com.br')
+    login_as user
 
     visit class_categories_path
 
