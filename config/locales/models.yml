@@ -1,7 +1,28 @@
 pt-BR:
   activerecord:
+    models:
+      class_category:
+        one: Categoria de Aulas
+        other: Categorias de Aulas
     attributes:
+      class_category:
+        name: Nome
+        description: Descrição
+        responsible_teacher: Professor Responsável
+        icon: Ícone da categoria
       enrollment:
         payment_method: Método de pagamento
         plan: Plano
         customer: Aluno
+        
+  # views      
+  class_categories:
+    new:
+      error: 'Não podemos cadastrar esta categoria no momento'
+    create:
+      error: 'Ocorreram erros durante o cadastro, veja abaixo:'
+    update:
+      success: Categoria de Aula editada com sucesso.
+      error: 'Ocorreram erros durante a edição, veja abaixo:' 
+    destroy:
+      success: 'Categoria excluida com sucesso'
