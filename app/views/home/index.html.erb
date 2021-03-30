@@ -5,9 +5,9 @@
     <div id="plan-<%= plan.id %>">
       <dl>
         <dt>Nome:</dt>
-        <dd><%= plan.name %></dd>
+        <dd><%= link_to plan.name, plan_path(plan) %></dd>
         <dt>Mensalidade:</dt>
-        <dd><%= plan.montlhy_rate %></dd>
+        <dd><%= plan.monthly_rate %></dd>
         <dt>Quantidade de aulas por mês:</dt>
         <dd><%= plan.monthly_class_limit %></dd>
         <dt>Aulas abrangidas:</dt>
@@ -26,7 +26,11 @@
     <p> Não é possível contratar planos agora </p>
   <% end %>
 <% end %>
+
 <% if current_user.admin? %>
   <%= link_to 'Cadastrar Categoria de Aulas', new_class_category_path %>
   <%= link_to 'Categorias de Aula', class_categories_path %>
+
+  <%= link_to 'Cadastrar Plano', new_plan_path %>
+
 <% end %>

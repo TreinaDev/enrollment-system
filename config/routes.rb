@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   root "home#index"
 
+  resources :plans, only: %i[ new create show edit update destroy ] do
+    member do
+      post 'buy'
+      patch 'inactivate'
+    end
+  end
+
   devise_for :users
 
   resources :class_categories
