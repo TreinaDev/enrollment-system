@@ -3,22 +3,18 @@ class Enrollment < ApplicationRecord
   belongs_to :plan
 
   enum status: { inactive: 0, pending: 5, active: 10 }
-  
+
   validates :payment_method, presence: true
 
-  # TODO: Implementar metodo
-  # def self.approve_payment!(plan, customer)
-  #   customer = Enrollment.find_by(customer: customer.id)
-  #   data = {
-  #     customer: customer, # token
-  #     price: plan.price,
-  #     payment_method: Customer.find_by(token: customer).payment_method
-  #   }
-  #   post 'payments/api/v1/approve_payment', params: data
-  #   if status == 200
-  #     customer.update!(status: :approved)
-  #   else
-  #     customer.update!(status: :pending)
-  #   end
-  # end
+  def approve_payment!
+    data = { customer: customer.token, monthly_rate: plan.monthly_rate,
+             payment_method: payment_method }
+    response = Faraday.post 'http://localhost:5000/api/v1/approve_payment',
+                            params: data
+    if response.status == 200
+      update!(status: :active)
+    else
+      update!(status: :pending)
+    end
+  end
 end

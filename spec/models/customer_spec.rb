@@ -74,15 +74,15 @@ RSpec.describe Customer, type: :model do
                                                                  .and_return(resp_double)
       customer.hire_plan!(nil)
 
-      expect(customer.enrollment.errors.count).to eq 1
-      expect(customer.enrollment.errors.full_messages).to include 'Plan é obrigatório(a)'
+      expect(customer.enrollment.errors.count).to eq 2
+      expect(customer.enrollment.errors.full_messages).to include 'Plano é obrigatório(a)'
     end
 
     it 'change plan if already has one' do
       first_plan = create(:plan)
       new_plan = create(:plan, name: 'Avançado')
       customer = create(:customer)
-      create(:enrollment, customer: customer, plan: first_plan)
+      create(:enrollment, customer: customer, plan: first_plan, payment_method: 1)
 
       resp_json = '{ "blocked": false }'
       resp_double = double('faraday_response', status: :ok, body: resp_json)

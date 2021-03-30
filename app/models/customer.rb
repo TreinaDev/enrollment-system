@@ -15,17 +15,14 @@ class Customer < ApplicationRecord
     number.next.join
   end
 
-  # TODO: Adicionar funcionalidade ao metodo
   def hire_plan!(plan)
     if cpf_blocked?
       errors.add :customer, message: 'A matrícula não pode ser efetivada\
                                         poque o CPF informado está bloqueado'
     elsif enrollment
       enrollment.update(plan: plan)
-      # Enrollment.approve_payment!(plan: plan, customer: self)
     else
       create_enrollment(plan: plan)
-      # Enrollment.approve_payment!(plan: plan, customer: self)
     end
   end
 

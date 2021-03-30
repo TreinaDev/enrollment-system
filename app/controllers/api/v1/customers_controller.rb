@@ -22,6 +22,17 @@ module Api
         end
       end
 
+      def status
+        customer = Customer.find_by(token: params[:token])
+        if customer.nil?
+          return render json: { message: 'Token não encontrado' }.to_json,
+                        status: :not_found
+        end
+        render json: { token: customer.token,
+                       status: customer.enrollment.status }.to_json,
+               status: :ok
+      end
+
       private
 
       def allowed_params
