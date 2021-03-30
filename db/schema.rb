@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_26_214632) do
+ActiveRecord::Schema.define(version: 2021_03_30_011921) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -88,6 +88,9 @@ ActiveRecord::Schema.define(version: 2021_03_26_214632) do
     t.integer "monthly_class_limit"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "description"
+    t.integer "status", default: 0
+    t.index ["name"], name: "index_plans_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|

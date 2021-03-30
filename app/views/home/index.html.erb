@@ -5,7 +5,7 @@
     <div id="plan-<%= plan.id %>">
       <dl>
         <dt>Nome:</dt>
-        <dd><%= plan.name %></dd>
+        <dd><%= link_to plan.name, plan_path(plan) %></dd>
         <dt>Mensalidade:</dt>
         <dd><%= plan.monthly_rate %></dd>
         <dt>Quantidade de aulas por mês:</dt>
@@ -29,4 +29,7 @@
 <% if user_signed_in? && current_user.admin? %>
   <%= link_to 'Cadastrar Categoria de Aulas', new_class_category_path %>
   <%= link_to 'Categorias de Aula', class_categories_path %>
+
+  <%= link_to 'Cadastrar Plano', new_plan_path %>
+
 <% end %>
