@@ -4,5 +4,6 @@ FactoryBot.define do
     monthly_rate { '100' }
     monthly_class_limit { 10 }
     description { 'Ideal para iniciantes' }
+    status {:active}
   end
 end

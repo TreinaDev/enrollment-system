@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :plans, only: %i[ new create show edit update destroy ] do
     member do
       post 'buy'
+      patch 'inactivate'
     end
   end
 

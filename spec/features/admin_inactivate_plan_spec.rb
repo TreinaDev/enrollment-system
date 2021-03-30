@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Admin delete a plan' do
+feature 'Admin inactivate a plan' do
   scenario 'successfully' do
     allow(PaymentMethod).to receive(:all).and_return([])
     yoga = create(:class_category, name: 'Yoga')
@@ -11,10 +11,11 @@ feature 'Admin delete a plan' do
 
     visit root_path
     click_on plan.name
-    click_on 'Excluir Plano'
+    click_on 'Inativar Plano'
 
     expect(current_path).to eq root_path
-    expect(Plan.count).to eq 0
-    expect(page).to have_content('Plano deletado com sucesso')
+    expect(Plan.count).to eq 1
+    expect(Plan.last.status).to eq 'inactive'
+    expect(page).to have_content('Plano inativado com sucesso')
   end
 end

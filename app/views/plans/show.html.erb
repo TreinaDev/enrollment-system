@@ -12,7 +12,7 @@
 
 <% if user_signed_in? %>
   <%= link_to 'Editar Plano', edit_plan_path(@plan) %>
-  <%= link_to 'Excluir Plano', plan_path(@plan), method: :delete %>
+  <%= link_to 'Inativar Plano', inactivate_plan_path(@plan), method: :patch %>
 <% end %>
 
 <%= @token  %>

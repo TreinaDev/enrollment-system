@@ -1,6 +1,8 @@
 class PlansController < ApplicationController
   before_action :authenticate_user!, only: %i[create new]
 
+  CLASSROOM_URL_APP = 'https://localhost:3000/'
+
   def new
     @plan = Plan.new
     @categories = ClassCategory.all
@@ -33,10 +35,10 @@ class PlansController < ApplicationController
     end
   end
 
-  def destroy
+  def inactivate
     @plan = Plan.find(params[:id])
-    @plan.destroy
-    flash[:notice] = 'Plano deletado com sucesso'
+    @plan.inactive!
+    flash[:notice] = 'Plano inativado com sucesso'
     redirect_to root_path
   end
 
@@ -47,7 +49,7 @@ class PlansController < ApplicationController
       render 'show'
     else
       @customer.hire_plan!(@plan)
-      redirect_to 'https://localhost:3000/'
+      redirect_to CLASSROOM_URL_APP
     end
   end
 
