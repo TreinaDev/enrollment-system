@@ -1,7 +1,7 @@
 class PlansController < ApplicationController
   before_action :authenticate_user!, only: %i[create new]
 
-  CLASSROOM_URL_APP = 'https://localhost:3000/'
+  CLASSROOM_URL_APP = 'https://localhost:3000/'.freeze
 
   def new
     @plan = Plan.new
