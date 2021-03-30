@@ -14,7 +14,7 @@
 
   <h4>Escolha seu Plano</h4>
   <% @plans.each do |plan| %>
-    <div style="border: 1px solid black">
+    <div>
       <ul>
         <% plan.class_categories.each do |category| %>
           <li><%= category.name %></li>

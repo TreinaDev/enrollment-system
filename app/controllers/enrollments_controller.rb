@@ -12,7 +12,7 @@ class EnrollmentsController < ApplicationController
       @enrollment.approve_payment!
       redirect_to root_path
     else
-      @customer = @enrollment.customer
+      @customer = Customer.find_by(token: params[:customer])
       @plans = Plan.all
       @payment_methods = PaymentMethod.all
       render :new
