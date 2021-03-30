@@ -6,6 +6,8 @@ class ClassCategoriesController < ApplicationController
     @class_categories = ClassCategory.all
   end
 
+  def show; end
+
   def edit; end
 
   def update
@@ -38,8 +40,6 @@ class ClassCategoriesController < ApplicationController
       render :new
     end
   end
-
-  def show; end
 
   def destroy
     @class_category.destroy

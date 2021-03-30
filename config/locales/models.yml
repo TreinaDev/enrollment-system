@@ -20,3 +20,7 @@ pt-BR:
       error: 'Ocorreram erros durante a edição, veja abaixo:' 
     destroy:
       success: 'Categoria excluida com sucesso'
+    index:
+      error: 'Nenhuma categoria de aula encontrada'
+    show:
+      error: 'Categoria de aula não encontrada'

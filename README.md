@@ -24,9 +24,9 @@
 
 :small_blue_diamond: [Como rodar os testes](#como-rodar-os-testes)
 
-:small_blue_diamond: [JSON](#json-floppy_disk)
-
 :small_blue_diamond: [Usuários](#usuários)
+
+:small_blue_diamond: [Rotas da API](#rotas-da-api)
 
 :small_blue_diamond: [Iniciando/Configurando banco de dados](#iniciando/configurando-banco-de-dados)
 
@@ -89,10 +89,58 @@ $ bundle exec rspec
 
 ### Usuários: 
 
-|name|email|password|
-| -------- |-------- |-------- |
-|Renato|renato@flix.com.br|123456|
-|Maria|maria@smartflix.com.br|123457|
+|nome|email|senha|admin?|
+| -------- |-------- |-------- |-------- |
+|Renato|renato@flix.com.br|123456|não|
+|Maria|maria@smartflix.com.br|123457|sim|
+
+### Rotas da API:
+#### Consulta de Categoria de Aulas
+##### GET /api/v1/class_categories
+**HTTP status:** 200
+```json 
+[
+    {
+       "id":1,
+       "name": "crossfit",
+       "description": "Fica grande",
+       "responsible_teacher": "Felipe Franco",
+       "icon": "",
+    },
+    {
+       "id":2,
+       "name": "Yoga",
+       "description": "Aula Zen",
+       "responsible_teacher": "Mudra",
+       "icon": "",
+    }
+]
+```
+
+**HTTP status:** 404 - Parâmetro Inválido
+```json
+"Nenhuma categoria de aula encontrada"
+```
+
+#### Consulta de Categoria de Aula única
+##### GET /api/v1/class_category/:id
+**HTTP status:** 200
+```json 
+[
+    {
+       "id":1,
+       "name": "crossfit",
+       "description": "Fica grande",
+       "responsible_teacher": "Felipe Franco",
+       "icon": "",
+    }
+]
+```
+
+**HTTP status:** 404 - Paramêtro inválido
+```json
+"Categoria de aula não encontrada"
+```
 
 ## Iniciando/Configurando banco de dados
 
@@ -103,7 +151,7 @@ $ rails db:seed
 
 ## Desenvolvedores/Contribuintes :octocat:
 
-| [<img src="https://avatars.githubusercontent.com/u/45540147?v=4" width=115><br><sub>Lucas Sanches</sub>](https://github.com/sancheslz) |  [<img src="https://avatars.githubusercontent.com/u/74281572?v=4" width=115><br><sub>Leticia Oliveira</sub>](https://github.com/leticiaoliveira5) |  [<img src="https://avatars.githubusercontent.com/u/72029258?v=4" width=115><br><sub>Helio Matsubaya</sub>](https://github.com/Matsubayashi-Helio) | [<img src="https://avatars.githubusercontent.com/u/19741423?v=4" width=115><br><sub>Filipe Pinato</sub>](https://github.com/tiofih) |  [<img src="https://avatars.githubusercontent.com/u/70206232?v=4" width=115><br><sub>Julia Jubileu</sub>](https://github.com/JuliaJubileu) |  [<img src="https://avatars.githubusercontent.com/u/5360344?v=4" width=115><br><sub>Murilo Miranda</sub>]() |
+| [<img src="https://avatars.githubusercontent.com/u/45540147?v=4" width=115><br><sub>Lucas Sanches</sub>](https://github.com/sancheslz) |  [<img src="https://avatars.githubusercontent.com/u/74281572?v=4" width=115><br><sub>Leticia Oliveira</sub>](https://github.com/leticiaoliveira5) |  [<img src="https://avatars.githubusercontent.com/u/72029258?v=4" width=115><br><sub>Helio Matsubaya</sub>](https://github.com/Matsubayashi-Helio) | [<img src="https://avatars.githubusercontent.com/u/19741423?v=4" width=115><br><sub>Filipe Pinato</sub>](https://github.com/tiofih) |  [<img src="https://avatars.githubusercontent.com/u/70206232?v=4" width=115><br><sub>Julia Jubileu</sub>](https://github.com/JuliaJubileu) |  [<img src="https://avatars.githubusercontent.com/u/32912035?v=4" width=115><br><sub>Murilo Miranda</sub>](https://github.com/murilo-miranda) |
 | :---: | :---: | :---: | :---: | :---: | :---: 
 
 ## Licença 
