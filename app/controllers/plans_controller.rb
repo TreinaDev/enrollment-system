@@ -8,7 +8,7 @@ class PlansController < ApplicationController
 
   def show
     @plan = Plan.find(params[:id])
-    @@url_token = params[:token]
+    session[:token] = params[:token]
   end
 
   def create
@@ -42,12 +42,12 @@ class PlansController < ApplicationController
 
   def buy
     @plan = Plan.find(params[:id])
-    @customer = Customer.find_by(token: @@url_token)
+    @customer = Customer.find_by(token: session[:token])
     if @customer.nil?
       render 'show'
     else
       @customer.hire_plan!(@plan)
-      redirect_to 'https://localhost:4000/customer'
+      redirect_to 'https://localhost:3000/'
     end
   end
 
