@@ -2,9 +2,7 @@
 
 <% if @enrollment.errors.any? %>
   <div>
-    <% @enrollment.errors.full_messages.each do |error| %>
-      <p><%= error %></p>
-    <% end %>
+    <%= render partial: "shared/display_errors", locals: { model: @enrollment } %>
   </div>
 <% end %>
 

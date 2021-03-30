@@ -107,7 +107,8 @@ feature 'Customer enroll a plan' do
       monthly_rate: plan.monthly_rate,
       payment_method: ccred.code
     }
-    allow(Faraday).to receive(:post).with('http://localhost:5000/api/v1/approve_payment',
+    domain = Rails.configuration.api(:payment_fraud)
+    allow(Faraday).to receive(:post).with("#{domain}/api/v1/approve_payment",
                                           params: data).and_return(response)
 
     # Act
@@ -156,7 +157,8 @@ feature 'Customer enroll a plan' do
         monthly_rate: plan.monthly_rate,
         payment_method: ccred.code
       }
-      allow(Faraday).to receive(:post).with('http://localhost:5000/api/v1/approve_payment',
+      domain = Rails.configuration.api(:payment_fraud)
+      allow(Faraday).to receive(:post).with("#{domain}/api/v1/approve_payment",
                                             params: data).and_return(response)
 
       # Act
@@ -185,7 +187,8 @@ feature 'Customer enroll a plan' do
         monthly_rate: plan.monthly_rate,
         payment_method: ccred.code
       }
-      allow(Faraday).to receive(:post).with('http://localhost:5000/api/v1/approve_payment',
+      domain = Rails.configuration.api(:payment_fraud)
+      allow(Faraday).to receive(:post).with("#{domain}/api/v1/approve_payment",
                                             params: data).and_return(response)
 
       # Act

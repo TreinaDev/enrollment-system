@@ -1,9 +1,7 @@
 <% if flash[:notice] %>
   <div>
     <% if @class_category.errors.any? %>
-      <% @class_category.errors.full_messages.each do |m| %>
-        <p> <%= m %> </p>
-      <% end %>
+      <%= render partial: "shared/display_errors", locals: { model: @class_category } %>
     <% end %>
   </div>
 <% end %>

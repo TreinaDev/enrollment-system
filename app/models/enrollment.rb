@@ -9,7 +9,8 @@ class Enrollment < ApplicationRecord
   def approve_payment!
     data = { customer: customer.token, monthly_rate: plan.monthly_rate,
              payment_method: payment_method }
-    response = Faraday.post 'http://localhost:5000/api/v1/approve_payment',
+    domain = Rails.configuration.api(:payment_fraud)
+    response = Faraday.post "#{domain}/api/v1/approve_payment",
                             params: data
     if response.status == 200
       update!(status: :active)
