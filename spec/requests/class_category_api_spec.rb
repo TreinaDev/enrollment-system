@@ -4,14 +4,19 @@ describe 'Class Category API' do
   context '#show' do
     it 'succesfully' do
       class_category = create(:class_category)
+      class_category.icon.attach(io: File.open(Rails.root.join('spec/support/yoga_icon.jpg')),
+                                filename: 'yoga_icon.jpg')
+
 
       get api_v1_class_category_path(class_category.id)
       json_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to have_http_status(200)
+      byebug
       expect(json_response[:name]).to eq('Crossfit')
       expect(json_response[:description]).to eq('Fica grande')
       expect(json_response[:responsible_teacher]).to eq('Felipe Franco')
+      expect(json_response[:icon]).to eq('Felipe Franco')
     end
 
     it 'unhappy path' do
