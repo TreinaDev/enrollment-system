@@ -108,17 +108,20 @@ feature 'Customer enroll a plan' do
       payment_method: ccred.code
     }
     domain = Rails.configuration.api['payment_fraud']
-    allow(Faraday).to receive(:post).with("http://#{domain}/api/v1/approve_payment",
-                                          params: data).and_return(response)
+    allow(Faraday).to receive(:post).with("#{domain}/approve_payment", params: data)
+                                    .and_return(response)
 
+    class_domain = Rails.configuration.api['classroom_app']
+    allow_any_instance_of(ActionController::Redirecting).to receive(:redirect_to).and_return(class_domain)
     # Act
     visit new_enrollment_path(token: '123', plan: plan.id)
     choose plan.name
     choose ccred.name
+
     click_on 'Comprar Plano'
 
     # Assert
-    expect(current_path).to eq(root_path)
+    expect(Enrollment.count).to eq(1)
   end
 
   scenario 'fields are required' do
@@ -150,6 +153,8 @@ feature 'Customer enroll a plan' do
       create(:class_category_plan, plan: plan, class_category: yoga)
       ccred = PaymentMethod.new(name: 'Cartão de Crédito', code: 'CCRED')
       allow(PaymentMethod).to receive(:all).and_return([ccred])
+      class_domain = Rails.configuration.api['classroom_app']
+      allow_any_instance_of(ActionController::Redirecting).to receive(:redirect_to).and_return(class_domain)
 
       response = double('faraday_post', status: 200)
       data = {
@@ -158,7 +163,7 @@ feature 'Customer enroll a plan' do
         payment_method: ccred.code
       }
       domain = Rails.configuration.api['payment_fraud']
-      allow(Faraday).to receive(:post).with("http://#{domain}/api/v1/approve_payment",
+      allow(Faraday).to receive(:post).with("#{domain}/approve_payment",
                                             params: data).and_return(response)
 
       # Act
@@ -188,8 +193,10 @@ feature 'Customer enroll a plan' do
         payment_method: ccred.code
       }
       domain = Rails.configuration.api['payment_fraud']
-      allow(Faraday).to receive(:post).with("http://#{domain}/api/v1/approve_payment",
+      allow(Faraday).to receive(:post).with("#{domain}/approve_payment",
                                             params: data).and_return(response)
+      class_domain = Rails.configuration.api['classroom_app']
+      allow_any_instance_of(ActionController::Redirecting).to receive(:redirect_to).and_return(class_domain)
 
       # Act
       visit new_enrollment_path(token: '123', plan: plan.id)

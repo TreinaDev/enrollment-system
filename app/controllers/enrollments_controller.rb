@@ -11,7 +11,7 @@ class EnrollmentsController < ApplicationController
     @enrollment = Enrollment.new(allowed_params)
     if @enrollment.save
       @enrollment.approve_payment!
-      redirect_to root_path
+      redirect_to Rails.configuration.api['classroom_app']
     else
       @customer = Customer.find_by(token: params[:customer])
       @plans = Plan.all

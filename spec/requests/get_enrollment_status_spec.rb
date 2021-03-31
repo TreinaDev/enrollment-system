@@ -18,6 +18,7 @@ describe 'Get enrollment status' do
     json_response = JSON.parse(response.body, symbolize_names: true)
     expect(response).to have_http_status(200)
     expect(json_response[:token]).to eq('123')
+    expect(json_response[:plan][:id]).to eq(plan.id)
     expect(json_response[:status]).to eq('inactive')
   end
 
@@ -38,6 +39,7 @@ describe 'Get enrollment status' do
     json_response = JSON.parse(response.body, symbolize_names: true)
     expect(response).to have_http_status(200)
     expect(json_response[:token]).to eq('123')
+    expect(json_response[:plan][:id]).to eq(plan.id)
     expect(json_response[:status]).to eq('active')
   end
 
@@ -58,6 +60,7 @@ describe 'Get enrollment status' do
     json_response = JSON.parse(response.body, symbolize_names: true)
     expect(response).to have_http_status(200)
     expect(json_response[:token]).to eq('123')
+    expect(json_response[:plan][:id]).to eq(plan.id)
     expect(json_response[:status]).to eq('pending')
   end
 

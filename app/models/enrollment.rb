@@ -11,7 +11,7 @@ class Enrollment < ApplicationRecord
              payment_method: payment_method }
 
     domain = Rails.configuration.api['payment_fraud']
-    response = Faraday.post "http://#{domain}/api/v1/approve_payment",
+    response = Faraday.post "#{domain}/approve_payment",
                             params: data
     if response.status == 200
       update!(status: :active)

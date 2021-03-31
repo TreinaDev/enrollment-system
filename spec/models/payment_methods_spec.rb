@@ -7,7 +7,7 @@ describe PaymentMethod do
       resp_double = double('faraday_resp', body: resp_json, status: 200)
 
       domain = Rails.configuration.api[:payment_fraud]
-      allow(Faraday).to receive(:get).with("http://#{domain}/api/v1/payment_methods").and_return(resp_double)
+      allow(Faraday).to receive(:get).with("#{domain}/payment_methods").and_return(resp_double)
 
       payment_methods = PaymentMethod.all
 
@@ -21,7 +21,7 @@ describe PaymentMethod do
     it 'should return empty if bad request' do
       resp_double = double('faraday_resp', status: 400, body: '')
       domain = Rails.configuration.api[:payment_fraud]
-      allow(Faraday).to receive(:get).with("http://#{domain}/api/v1/payment_methods").and_return(resp_double)
+      allow(Faraday).to receive(:get).with("#{domain}/payment_methods").and_return(resp_double)
 
       payment_methods = PaymentMethod.all
 

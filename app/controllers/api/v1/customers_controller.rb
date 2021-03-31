@@ -29,6 +29,7 @@ module Api
                         status: :not_found
         end
         render json: { token: customer.token,
+                       plan: customer.enrollment.plan,
                        status: customer.enrollment.status }.to_json,
                status: :ok
       end

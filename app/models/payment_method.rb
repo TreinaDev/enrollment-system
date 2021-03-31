@@ -3,7 +3,7 @@ class PaymentMethod
 
   def self.all
     domain = Rails.configuration.api['payment_fraud']
-    response = Faraday.get("http://#{domain}/api/v1/payment_methods")
+    response = Faraday.get("#{domain}/payment_methods")
 
     return [] if response.status == 400
 
