@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   namespace 'api', defaults: { format: :json } do
     namespace 'v1' do
       resources :customers, :only => %i[ create show ]
+      resources :plans, :only => %i[ index ]
     end
   end
 end
