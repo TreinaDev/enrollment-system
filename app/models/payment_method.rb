@@ -2,8 +2,8 @@ class PaymentMethod
   attr_reader :name, :code
 
   def self.all
-    domain = Rails.configuration.api(:payment_fraud)
-    response = Faraday.get("#{domain}/api/v1/payment_methods")
+    domain = Rails.configuration.api['payment_fraud']
+    response = Faraday.get("http://#{domain}/api/v1/payment_methods")
 
     return [] if response.status == 400
 

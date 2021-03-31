@@ -85,7 +85,7 @@ feature 'Customer enroll a plan' do
     allow(PaymentMethod).to receive(:all).and_return([ccred])
 
     # Act
-    visit new_enrollment_path(token: '123')
+    visit new_enrollment_path(token: '123', plan: plan.id)
 
     # Assert
     expect(page).to have_content(plan.name)
@@ -107,12 +107,12 @@ feature 'Customer enroll a plan' do
       monthly_rate: plan.monthly_rate,
       payment_method: ccred.code
     }
-    domain = Rails.configuration.api(:payment_fraud)
-    allow(Faraday).to receive(:post).with("#{domain}/api/v1/approve_payment",
+    domain = Rails.configuration.api['payment_fraud']
+    allow(Faraday).to receive(:post).with("http://#{domain}/api/v1/approve_payment",
                                           params: data).and_return(response)
 
     # Act
-    visit new_enrollment_path(token: '123')
+    visit new_enrollment_path(token: '123', plan: plan.id)
     choose plan.name
     choose ccred.name
     click_on 'Comprar Plano'
@@ -157,12 +157,12 @@ feature 'Customer enroll a plan' do
         monthly_rate: plan.monthly_rate,
         payment_method: ccred.code
       }
-      domain = Rails.configuration.api(:payment_fraud)
-      allow(Faraday).to receive(:post).with("#{domain}/api/v1/approve_payment",
+      domain = Rails.configuration.api['payment_fraud']
+      allow(Faraday).to receive(:post).with("http://#{domain}/api/v1/approve_payment",
                                             params: data).and_return(response)
 
       # Act
-      visit new_enrollment_path(token: '123')
+      visit new_enrollment_path(token: '123', plan: plan.id)
       choose plan.name
       choose ccred.name
       click_on 'Comprar Plano'
@@ -187,12 +187,12 @@ feature 'Customer enroll a plan' do
         monthly_rate: plan.monthly_rate,
         payment_method: ccred.code
       }
-      domain = Rails.configuration.api(:payment_fraud)
-      allow(Faraday).to receive(:post).with("#{domain}/api/v1/approve_payment",
+      domain = Rails.configuration.api['payment_fraud']
+      allow(Faraday).to receive(:post).with("http://#{domain}/api/v1/approve_payment",
                                             params: data).and_return(response)
 
       # Act
-      visit new_enrollment_path(token: '123')
+      visit new_enrollment_path(token: '123', plan: plan.id)
       choose plan.name
       choose ccred.name
       click_on 'Comprar Plano'

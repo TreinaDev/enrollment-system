@@ -19,8 +19,12 @@
         <% end %>
       </ul>
       <%= label_tag "plan_#{plan.id}", plan.name %>
-      <%= radio_button_tag :plan, plan.id %>
 
+      <% unless @selected_plan.nil? %>
+        <%= radio_button_tag :plan, plan.id, plan.id.eql?(@selected_plan.to_i) %>
+      <% else %>
+        <%= radio_button_tag :plan, plan.id %>
+      <% end %>
       Valor Mensal <%= number_to_currency(plan.monthly_rate) %>
       Quantidade de Aulas <%= plan.monthly_class_limit %>
     </div>

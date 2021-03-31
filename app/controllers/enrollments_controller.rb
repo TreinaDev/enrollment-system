@@ -2,6 +2,7 @@ class EnrollmentsController < ApplicationController
   def new
     @enrollment = Enrollment.new
     @customer = Customer.find_by(token: params[:token])
+    @selected_plan = params[:plan]
     @plans = Plan.all
     @payment_methods = PaymentMethod.all
   end

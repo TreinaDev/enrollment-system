@@ -1,3 +1,7 @@
 development:
-  classroom_app: 'http://localhost:3000'
-  payment_fraud: 'http://localhost:5000'
+  classroom_app: 'localhost:3000'
+  payment_fraud: 'localhost:5000'
+
+test:
+  classroom_app: 'localhost:3000'
+  payment_fraud: 'localhost:5000'
