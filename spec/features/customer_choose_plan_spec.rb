@@ -5,8 +5,8 @@ feature 'Customer choose a plan' do
     user = User.create!(email: 'renata@smartflix.com.br', password: '123456',
                         role: :admin)
     yoga = create(:class_category, name: 'Yoga')
-    first_plan = create(:plan, name: 'PlanoFit', montlhy_rate: 200, monthly_class_limit: 5)
-    second_plan = create(:plan, name: 'PlanoSmart', montlhy_rate: 300, monthly_class_limit: 7)
+    first_plan = create(:plan, name: 'PlanoFit', monthly_rate: 200, monthly_class_limit: 5)
+    second_plan = create(:plan, name: 'PlanoSmart', monthly_rate: 300, monthly_class_limit: 7)
     create(:class_category_plan, plan: first_plan, class_category: yoga)
     ccred = PaymentMethod.new(name: 'Cartão de Crédito', code: 'CCRED')
     bol = PaymentMethod.new(name: 'Boleto', code: 'BOL')
@@ -19,7 +19,7 @@ feature 'Customer choose a plan' do
       expect(page).to have_content('Nome: ')
       expect(page).to have_content(first_plan.name)
       expect(page).to have_content('Mensalidade: ')
-      expect(page).to have_content(first_plan.montlhy_rate)
+      expect(page).to have_content(first_plan.monthly_rate)
       expect(page).to have_content('Quantidade de aulas por mês: ')
       expect(page).to have_content(first_plan.monthly_class_limit)
       expect(page).to have_content('Aulas abrangidas:')
@@ -29,7 +29,7 @@ feature 'Customer choose a plan' do
       expect(page).to have_content('Nome:')
       expect(page).to have_content(second_plan.name)
       expect(page).to have_content('Mensalidade:')
-      expect(page).to have_content(second_plan.montlhy_rate)
+      expect(page).to have_content(second_plan.monthly_rate)
       expect(page).to have_content('Quantidade de aulas por mês:')
       expect(page).to have_content(second_plan.monthly_class_limit)
     end
@@ -53,7 +53,7 @@ feature 'Customer choose a plan' do
     user = User.create!(email: 'renata@smartflix.com.br', password: '123456',
                         role: :admin)
     yoga = create(:class_category, name: 'Yoga')
-    plan = create(:plan, name: 'PlanoFit', montlhy_rate: 200, monthly_class_limit: 5)
+    plan = create(:plan, name: 'PlanoFit', monthly_rate: 200, monthly_class_limit: 5)
     create(:class_category_plan, plan: plan, class_category: yoga)
     allow(PaymentMethod).to receive(:all).and_return([])
 
@@ -64,7 +64,7 @@ feature 'Customer choose a plan' do
       expect(page).to have_content('Nome: ')
       expect(page).to have_content(plan.name)
       expect(page).to have_content('Mensalidade: ')
-      expect(page).to have_content(plan.montlhy_rate)
+      expect(page).to have_content(plan.monthly_rate)
       expect(page).to have_content('Quantidade de aulas por mês: ')
       expect(page).to have_content(plan.monthly_class_limit)
       expect(page).to have_content('Aulas abrangidas: ')
