@@ -1,0 +1,18 @@
+<h1>Nome: <%= @plan.name %></h1>
+<div>
+  <dd><%= t('.description') %>: <%= @plan.description %></dd>
+  <dd><%= t('.monthly_rate') %>: <%= @plan.monthly_rate %></dd>
+  <dd><%= t('.monthly_class_limit') %>: <%= @plan.monthly_class_limit %></dd>
+  <% names =[] %>
+  <% @plan.class_categories.each { |c| names << c.name } %>
+  <dd><%= t('.class_categories') %>: <%= names.join(', ') %></dd>
+</div>
+
+<%= link_to 'Comprar plano', buy_plan_path(@plan), method: :post  %>
+
+<% if user_signed_in? %>
+  <%= link_to 'Editar Plano', edit_plan_path(@plan) %>
+  <%= link_to 'Inativar Plano', inactivate_plan_path(@plan), method: :patch %>
+<% end %>
+
+<%= @token  %>
