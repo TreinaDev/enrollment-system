@@ -15,4 +15,11 @@
     <p class="alert"><%= alert %></p>
     <%= yield %>
   </body>
+
+  <nav>
+    <% if @customer %>
+      <%= link_to 'Ver Matrícula', enrollment_path(@customer.enrollment) %>
+    <% end %>
+  </nav>
+
 </html>
