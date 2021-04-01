@@ -12,8 +12,7 @@ module Api
         class_category = ClassCategory.find_by(params[:id])
         return render status: :not_found, json: "{ msg: #{I18n.t('.error')} }" if class_category.nil?
 
-        render json: class_category.as_json(except: [:created_at, :updated_at],
-          include: url_for(class_category.icon)), status: :ok
+        render json: class_category.as_json(except: %i[created_at updated_at icon]), status: :ok
       end
     end
   end

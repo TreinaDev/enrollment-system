@@ -5,18 +5,16 @@ describe 'Class Category API' do
     it 'succesfully' do
       class_category = create(:class_category)
       class_category.icon.attach(io: File.open(Rails.root.join('spec/support/yoga_icon.jpg')),
-                                filename: 'yoga_icon.jpg')
-
+                                 filename: 'yoga_icon.jpg')
 
       get api_v1_class_category_path(class_category.id)
       json_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to have_http_status(200)
-      byebug
       expect(json_response[:name]).to eq('Crossfit')
       expect(json_response[:description]).to eq('Fica grande')
       expect(json_response[:responsible_teacher]).to eq('Felipe Franco')
-      expect(json_response[:icon]).to eq('Felipe Franco')
+      expect(json_response[:image_url]).to eq('http://localhost:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBZ3ciLCJleHAiOm51bGwsInB1ciI6ImJsb2JfaWQifX0=--86fbdf4cd6e50b8d6469dfebee67a3825e52e6f3/yoga_icon.jpg')
     end
 
     it 'unhappy path' do

@@ -49,7 +49,7 @@ class ClassCategoriesController < ApplicationController
   private
 
   def class_category_params
-    params.require(:class_category).permit(:name, :description, :responsible_teacher, :icon)
+    params.require(:class_category).permit(:name, :description, :responsible_teacher, :icon, :image_url)
   end
 
   def all_teachers
