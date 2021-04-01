@@ -1,4 +1,8 @@
 class EnrollmentsController < ApplicationController
+  def index
+    @enrollments = Enrollment.all
+  end
+
   def new
     @enrollment = Enrollment.new
     @customer = Customer.find_by(token: params[:token])

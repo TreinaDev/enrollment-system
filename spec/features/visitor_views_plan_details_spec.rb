@@ -16,7 +16,7 @@ feature 'Visitor views plan details' do
     expect(current_path).to eq plan_path(plan)
     expect(page).to have_text 'Nome: Fit'
     expect(page).to have_text 'Descrição: Ideal para quem está começando'
-    expect(page).to have_text 'Mensalidade: 9.99'
+    expect(page).to have_text 'Mensalidade: R$ 9,99'
     expect(page).to have_text 'Quantidade de aulas por mês: 10'
     expect(page).to have_text 'Categorias de aulas: Crossfit, Yoga'
     expect(page).to have_link 'Comprar plano'

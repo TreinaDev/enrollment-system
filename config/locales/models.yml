@@ -35,3 +35,8 @@ pt-BR:
       error: 'Ocorreram erros durante a edição, veja abaixo:' 
     destroy:
       success: 'Categoria excluida com sucesso'
+  enrollments:
+    index:
+      active: Ativo
+      pending: Pendente
+      inactive: Inativo
