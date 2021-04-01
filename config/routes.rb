@@ -11,11 +11,11 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :class_categories
-  
+
   namespace 'api', defaults: { format: :json } do
     namespace 'v1' do
       resources :customers, :only => %i[ create show ]
-      resources :plans, :only => %i[ index ]
+      resources :plans, :only => %i[ index show ]
     end
   end
 end
