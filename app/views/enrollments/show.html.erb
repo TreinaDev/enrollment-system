@@ -1,0 +1,23 @@
+<h3>Matrícula</h3>
+<p> Status da matrícula: <%= t(".#{@enrollment.status}") %> </p>
+
+<h4>Dados do Aluno</h4>
+<p> Nome: <%= @customer.name %> </p>
+<p> E-mail: <%= @customer.email %> </p>
+<p> Data de Nascimento: <%= @customer.birthdate %> </p>
+<p> CPF: <%= @customer.cpf %> </p>
+<p> Aluno desde: <%= @customer.created_at.to_date %> </p>
+<p> Método de pagamento: <%= @customer.payment_method %> </p>
+<%= link_to 'Editar dados', root_path %>
+
+<h4>Detalhes do Plano</h4>
+<% if @enrollment.active? || @enrollment.pending? %>
+  <p> Plano: <%= link_to @enrollment.plan.name, plan_path(@enrollment.plan) %> </p>  
+  <p> Mensalidade: <%= number_to_currency(@enrollment.plan.monthly_rate) %> </p>  
+  <p> Aulas abrangidas: <%= @enrollment.plan.class_categories.join(',') %> </p>  
+  <%#= link_to 'Trocar de plano', root_path %>
+<% else %>
+  Nenhum plano contratado no momento.
+<% end %>
+
+<p> <%= button_to 'Cancelar matrícula', inactivate_enrollment_path(@enrollment), method: :post %> </p>
