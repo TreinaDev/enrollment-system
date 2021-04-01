@@ -14,7 +14,7 @@ describe 'Class Category API' do
       expect(json_response[:name]).to eq('Crossfit')
       expect(json_response[:description]).to eq('Fica grande')
       expect(json_response[:responsible_teacher]).to eq('Felipe Franco')
-      expect(json_response[:image_url]).to eq('http://localhost:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBZ3ciLCJleHAiOm51bGwsInB1ciI6ImJsb2JfaWQifX0=--86fbdf4cd6e50b8d6469dfebee67a3825e52e6f3/yoga_icon.jpg')
+      expect(json_response[:image_url]).to include('yoga_icon.jpg')
     end
 
     it 'unhappy path' do
