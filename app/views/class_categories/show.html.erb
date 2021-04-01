@@ -3,9 +3,9 @@
 <p> <%= @class_category.description %> </p>
 <h3>Professor Responsável:</h3>
 <p> <%= @class_category.responsible_teacher %> </p>
-<h3>ícone:</h3>
+<h3>Ícone:</h3>
 <% if @class_category.icon.attached? %>
   <%= image_tag @class_category.icon %>
 <% end %>
-<%= link_to 'Editar Categoria de Aula', edit_class_category_path(@class_category) %>
-<%= link_to 'Excluir Categoria de Aula', class_category_path(@class_category), method: :delete %>
+<%= link_to 'Editar Categoria de Aula', edit_class_category_path(@class_category), class: 'btn btn-warning' %>
+<%= link_to 'Excluir Categoria de Aula', class_category_path(@class_category), method: :delete, class: 'btn btn-danger' %>
