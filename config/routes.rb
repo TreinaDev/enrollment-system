@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   root "home#index"
-  resources :enrollments, only: %i[ index new create ]
+  resources :enrollments, only: %i[ index new create destroy ]
 
   resources :plans, only: %i[ new create show edit update destroy ] do
     member do

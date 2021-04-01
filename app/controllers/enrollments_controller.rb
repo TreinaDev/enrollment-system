@@ -24,6 +24,12 @@ class EnrollmentsController < ApplicationController
     end
   end
 
+  def destroy
+    @enrollment = Enrollment.find(params[:id])
+    @enrollment.update!(status: :inactive)
+    redirect_to enrollments_path
+  end
+
   private
 
   def allowed_params

@@ -5,11 +5,12 @@
           <th scope="col">Nome</th>
           <th scope="col">Plano</th>
           <th scope="col">Status</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <% @enrollments.each do |enrollment| %>
-          <tr>
+          <tr id="enrollment_<%= enrollment.id %>">
             <td scope="row"> <%= enrollment.customer.name %> </td>
             <td> <%= enrollment.plan.name %> </td>
             <% if enrollment.status == 'active' %>
@@ -19,6 +20,11 @@
             <% else %>
               <td> <span class='badge badge-danger'> <%= t(".#{enrollment.status}") %> </span> </td>
             <% end %>
+            <td>
+              <% if enrollment.status == 'active' %>
+                <%= link_to "Cancelar", enrollment_path(enrollment), { method: :delete, class: 'btn btn-sm btn-danger' }%>
+              <% end %>
+            </td>
           </tr>
         <% end %>
       </tbody>
