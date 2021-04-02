@@ -30,7 +30,7 @@ describe 'Get enrollment status' do
     create(:class_category_plan, plan: plan, class_category: yoga)
     ccred = PaymentMethod.new(name: 'Cartão de Crédito', code: 'CCRED')
     allow(PaymentMethod).to receive(:all).and_return([ccred])
-    Enrollment.create!(customer: customer, plan: plan, payment_method: ccred, status: :active)
+    enrollment = Enrollment.create!(customer: customer, plan: plan, payment_method: ccred, status: :active)
 
     # Act
     get "/api/v1/customers/status?token=#{customer.token}"
@@ -40,6 +40,11 @@ describe 'Get enrollment status' do
     expect(response).to have_http_status(200)
     expect(json_response[:token]).to eq('123')
     expect(json_response[:plan][:id]).to eq(plan.id)
+    expect(json_response[:plan][:name]).to eq(plan.name)
+    expect(json_response[:plan][:monthly_rate]).to eq(plan.monthly_rate.to_s)
+    expect(json_response[:plan][:monthly_class_limit]).to eq(plan.monthly_class_limit)
+    expect(json_response[:plan][:description]).to eq(plan.description)
+    expect(json_response[:enrolled_at]).to eq(enrollment.updated_at.strftime('%d/%m/%Y'))
     expect(json_response[:status]).to eq('active')
   end
 

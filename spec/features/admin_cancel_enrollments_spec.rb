@@ -36,12 +36,12 @@ feature 'Admin cancel enrollments' do
       customer = create(:customer, name: 'Maria')
       enrollment = create(:enrollment, plan: plan, customer: customer, payment_method: ccred, status: 'inactive')
       admin = create(:user)
-  
+
       # Act
       login_as admin, scope: :user
       visit root_path
       click_on 'Ver Matrículas'
-  
+
       # Assert
       within("tr#enrollment_#{enrollment.id}") do
         expect(page).not_to have_link('Cancelar')
@@ -56,12 +56,12 @@ feature 'Admin cancel enrollments' do
       customer = create(:customer, name: 'Maria')
       enrollment = create(:enrollment, plan: plan, customer: customer, payment_method: ccred, status: 'pending')
       admin = create(:user)
-  
+
       # Act
       login_as admin, scope: :user
       visit root_path
       click_on 'Ver Matrículas'
-  
+
       # Assert
       within("tr#enrollment_#{enrollment.id}") do
         expect(page).not_to have_link('Cancelar')
