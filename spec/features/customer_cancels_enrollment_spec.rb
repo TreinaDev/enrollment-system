@@ -15,5 +15,19 @@ feature 'Customer cancels enrollment' do
     expect(Enrollment.count).to eq 1
     expect(Enrollment.first.status).to eq 'inactive'
     expect(page).to have_content 'Status da matrícula: Inativa'
+    expect(page).not_to have_content 'Cancelar matrícula'
+  end
+  scenario 'and cannot see the cancel button' do
+    ccred = PaymentMethod.new(name: 'Cartão de Crédito', code: 'CCRED')
+    allow(PaymentMethod).to receive(:all).and_return([ccred])
+    customer = create(:customer, token: '123')
+    create(:enrollment, status: 'inactive', customer: customer)
+
+    login_as customer, scope: :customer
+    visit root_path(token: customer.token)
+    click_on 'Ver Matrícula'
+
+    expect(page).to have_content 'Status da matrícula: Inativa'
+    expect(page).not_to have_content 'Cancelar matrícula'
   end
 end
