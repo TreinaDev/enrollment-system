@@ -1,5 +1,5 @@
 class Customer < ApplicationRecord
-  validates :email, :name, :birthdate, :payment_method, presence: true
+  validates :email, :name, :birthdate, presence: true
   validates :cpf, presence: true, uniqueness: true
   validates :token, presence: true, uniqueness: true
   has_one :enrollment, dependent: :restrict_with_error

@@ -7,7 +7,6 @@
 <p> Data de Nascimento: <%= @customer.birthdate %> </p>
 <p> CPF: <%= @customer.cpf %> </p>
 <p> Aluno desde: <%= @customer.created_at.to_date %> </p>
-<p> Método de pagamento: <%= @customer.payment_method %> </p>
 <%= link_to 'Editar dados', root_path %>
 
 <h4>Detalhes do Plano</h4>
@@ -15,7 +14,8 @@
   <p> Plano: <%= link_to @enrollment.plan.name, plan_path(@enrollment.plan) %> </p>  
   <p> Mensalidade: <%= number_to_currency(@enrollment.plan.monthly_rate) %> </p>  
   <p> Aulas abrangidas: <%= @enrollment.plan.class_categories.join(',') %> </p>  
-  <%#= link_to 'Trocar de plano', root_path %>
+  <p> Método de pagamento: <%#= @enrollment.payment_method %> </p>
+  <%#= link_to 'Trocar de plano', path %>
 <% else %>
   Nenhum plano contratado no momento.
 <% end %>

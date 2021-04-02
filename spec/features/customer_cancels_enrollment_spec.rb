@@ -14,6 +14,6 @@ feature 'Customer cancels enrollment' do
 
     expect(Enrollment.count).to eq 1
     expect(Enrollment.first.status).to eq 'inactive'
-    expect(page).to have_content 'Status: Inativa'
+    expect(page).to have_content 'Status da matrícula: Inativa'
   end
 end

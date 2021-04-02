@@ -6,7 +6,6 @@ RSpec.describe Customer, type: :model do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:cpf) }
     it { should validate_presence_of(:birthdate) }
-    it { should validate_presence_of(:payment_method) }
 
     it { should validate_uniqueness_of(:cpf) }
     it { should validate_uniqueness_of(:token) }
