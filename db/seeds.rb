@@ -9,9 +9,10 @@ crossfit = ClassCategory.create!(name: 'Crossfit', description: 'Fica grande', r
 yoga = ClassCategory.create!(name: 'Yoga', description: 'Tranquilidade', responsible_teacher: 'Mudra')
 
 # Plano
-smart = Plan.create!(name: 'Plano Smart', montlhy_rate: 150, monthly_class_limit: 3)
-fit = Plan.create!(name: 'Plano Fit', montlhy_rate: 200, monthly_class_limit: 5)
+smart = Plan.create!(name: 'Plano Smart', monthly_rate: 150, monthly_class_limit: 3, description: 'Ideal para iniciantes')
+fit = Plan.create!(name: 'Plano Fit', monthly_rate: 200, monthly_class_limit: 5, description: 'Para aqueles que querem entrar em forma')
 
 # Categorias de aula do Plano
 ClassCategoryPlan.create!(plan: smart, class_category: crossfit)
 ClassCategoryPlan.create!(plan: fit, class_category: yoga)
+ClassCategoryPlan.create!(plan: fit, class_category: crossfit)

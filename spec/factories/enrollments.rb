@@ -3,5 +3,6 @@ FactoryBot.define do
     customer
     plan
     status { 'active' }
+    enrolled_at { Time.zone.today }
   end
 end

@@ -20,9 +20,9 @@ class Customer < ApplicationRecord
       errors.add :customer, message: 'A matrícula não pode ser efetivada\
                                         poque o CPF informado está bloqueado'
     elsif enrollment
-      enrollment.update(plan: plan)
+      enrollment.update(plan: plan, enrolled_at: Time.zone.today)
     else
-      create_enrollment(plan: plan)
+      create_enrollment(plan: plan, enrolled_at: Time.zone.today)
     end
   end
 
