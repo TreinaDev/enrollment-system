@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     member do
       post 'buy'
       patch 'inactivate'
+      get 'new_dependent'
     end
   end
 

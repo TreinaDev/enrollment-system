@@ -1,0 +1,9 @@
+<h1>Adicionar dependentes <%= @enrollment.plan.name %></h1>
+
+<%= form_with url: send_dependent_email_path do %>
+
+  <%= label_tag :s, 'E-mail do dependente' %>
+  <%= text_field_tag :s %>
+  <%= submit_tag 'Cadastrar dependente' %>
+
+<% end %>

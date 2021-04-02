@@ -53,6 +53,13 @@ class PlansController < ApplicationController
     end
   end
 
+  def new_dependent
+    customer = Customer.find_by(token: session[:token])
+    plan = Plan.find(params[:id])
+    @enrollment = Enrollment.where('plan.id = ? AND customer.token = ?',
+                                   plan.id, customer.token)
+  end
+
   private
 
   def plan_params
@@ -60,6 +67,7 @@ class PlansController < ApplicationController
                                  :monthly_rate,
                                  :monthly_class_limit,
                                  :description,
+                                 :max_dependents,
                                  class_category_ids: [])
   end
 end

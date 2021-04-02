@@ -10,6 +10,8 @@
 
 <%= link_to 'Comprar plano', buy_plan_path(@plan), method: :post  %>
 
+<%= link_to 'Cadastrar dependentes', new_dependent_plan_path %>
+
 <% if user_signed_in? %>
   <%= link_to 'Editar Plano', edit_plan_path(@plan) %>
   <%= link_to 'Inativar Plano', inactivate_plan_path(@plan), method: :patch %>

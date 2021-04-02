@@ -27,7 +27,7 @@
   <% end %>
 <% end %>
 
-<% if current_user.admin? %>
+<% if current_user&.admin? %>
   <%= link_to 'Cadastrar Categoria de Aulas', new_class_category_path %>
   <%= link_to 'Categorias de Aula', class_categories_path %>
 

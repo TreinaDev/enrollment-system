@@ -18,6 +18,9 @@
 <%= f.label :monthly_rate %>
 <%= f.number_field :monthly_rate %>
 
+<%= f.label :max_dependents, 'Quantidade de dependentes' %>
+<%= f.number_field :max_dependents %>
+
 <%= f.label :class_category %>
 <%= f.collection_check_boxes :class_category_ids, ClassCategory.all, :id, :name %>
 

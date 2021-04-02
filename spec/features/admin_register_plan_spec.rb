@@ -69,4 +69,30 @@ feature 'Admin register a plan' do
     expect(page).to have_content('Descrição não pode ficar em branco')
     expect(page).to have_content('Quantidade de aulas por mês não pode ficar em branco')
   end
+
+  scenario 'and can add number of dependents' do
+    crossfit = create(:class_category)
+    yoga = create(:class_category, name: 'Yoga', description: 'Balanço e flexibilidade')
+    allow(PaymentMethod).to receive(:all).and_return([])
+    admin = create(:user)
+
+    login_as admin, scope: :user
+    visit root_path
+    click_on 'Cadastrar Plano'
+    fill_in 'Nome', with: 'Familia'
+    fill_in 'Descrição', with: 'Inclua dependentes no seu plano'
+    fill_in 'Mensalidade', with: '49.99'
+    fill_in 'Quantidade de aulas por mês', with: '10'
+    fill_in 'Quantidade de dependentes', with: '4'
+    check 'Crossfit'
+    check 'Yoga'
+    click_on 'Cadastrar Plano'
+
+    plan = Plan.last
+    expect(current_path).to eq plan_path(plan)
+    expect(plan.name).to eq 'Familia'
+    expect(plan.monthly_class_limit).to eq 10
+    expect(plan.max_dependents).to eq 4
+    expect(page).to have_link('Cadastrar dependentes')
+  end
 end
