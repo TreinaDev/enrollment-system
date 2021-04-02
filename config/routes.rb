@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   root "home#index"
+  resources :enrollments, only: %i[ new create ]
 
   resources :plans, only: %i[ new create show edit update destroy ] do
     member do
-      post 'buy'
       patch 'inactivate'
     end
   end
@@ -14,10 +14,8 @@ Rails.application.routes.draw do
 
   namespace 'api', defaults: { format: :json } do
     namespace 'v1' do
-      resources :customers, :only => %i[ create show ]
-      resources :plans, :only => %i[ index show ]
-      
-      resources :enrollments, :only => %i[ show ] do
+      resources :customers, only: %i[ create show ] do
+        get 'status', on: :collection
       end
 
     end

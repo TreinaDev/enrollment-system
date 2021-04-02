@@ -67,7 +67,6 @@ ActiveRecord::Schema.define(version: 2021_04_02_005201) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "email"
     t.string "token"
-    t.integer "payment_method"
     t.index ["cpf"], name: "index_customers_on_cpf", unique: true
     t.index ["token"], name: "index_customers_on_token", unique: true
   end
@@ -78,6 +77,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_005201) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "status", default: 0
+    t.string "payment_method"
     t.date "enrolled_at"
     t.index ["customer_id"], name: "index_enrollments_on_customer_id"
     t.index ["plan_id"], name: "index_enrollments_on_plan_id"

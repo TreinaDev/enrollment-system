@@ -8,7 +8,7 @@
   <dd><%= t('.class_categories') %>: <%= names.join(', ') %></dd>
 </div>
 
-<%= link_to 'Comprar plano', buy_plan_path(@plan), method: :post  %>
+<%= link_to 'Comprar plano', new_enrollment_path(token: @customer, plan: @plan) %>
 
 <% if user_signed_in? %>
   <%= link_to 'Editar Plano', edit_plan_path(@plan) %>
