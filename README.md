@@ -93,38 +93,38 @@ $ bundle exec rspec
 **HTTP status:** 200
 ```json
 [
-{
-"id": 1,
-"name": "Plano Smart",
-"monthly_rate": "150.0",
-"monthly_class_limit": 3,
-"description": "Ideal para iniciantes",
-"status": "active",
-"class_categories": [
-{
-"id": 1,
-"name": "Crossfit"
-}
-]
-},
-{
-"id": 2,
-"name": "Plano Fit",
-"monthly_rate": "200.0",
-"monthly_class_limit": 5,
-"description": "Para aqueles que querem entrar em forma",
-"status": "active",
-"class_categories": [
-{
-"id": 2,
-"name": "Yoga"
-},
-{
-"id": 1,
-"name": "Crossfit"
-}
-]
-}
+    {
+        "id": 1,
+        "name": "Plano Smart",
+        "monthly_rate": "150.0",
+        "monthly_class_limit": 3,
+        "description": "Ideal para iniciantes",
+        "status": "active",
+        "class_categories": [
+            {
+              "id": 1,
+              "name": "Crossfit"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Plano Fit",
+        "monthly_rate": "200.0",
+        "monthly_class_limit": 5,
+        "description": "Para aqueles que querem entrar em forma",
+        "status": "active",
+        "class_categories": [
+            {
+                "id": 2,
+                "name": "Yoga"
+            },
+            {
+                "id": 1,
+                "name": "Crossfit"
+            }
+        ]
+    }
 ]
 ```
 
@@ -138,22 +138,22 @@ $ bundle exec rspec
 **HTTP status:** 200
 ```json
 {
-"status": "active",
-"enrolled_at": "2021-04-01",
-"plan": {
-"id": 1,
-"name": "Plano Smart",
-"monthly_rate": "150.0",
-"monthly_class_limit": 3,
-"description": "Ideal para iniciantes",
-"status": "active",
-"class_categories": [
-{
-"id": 1,
-"name": "Crossfit"
-}
-]
-}
+    "status": "active",
+    "enrolled_at": "2021-04-01",
+    "plan": {
+        "id": 1,
+        "name": "Plano Smart",
+        "monthly_rate": "150.0",
+        "monthly_class_limit": 3,
+        "description": "Ideal para iniciantes",
+        "status": "active",
+        "class_categories": [
+            {
+            "id": 1,
+            "name": "Crossfit"
+            }
+        ]
+    }
 }
 ```
 
