@@ -10,7 +10,7 @@ class PlansController < ApplicationController
 
   def show
     @plan = Plan.find(params[:id])
-    session[:token] = params[:token]
+    @customer = params[:token]
   end
 
   def create
@@ -40,17 +40,6 @@ class PlansController < ApplicationController
     @plan.inactive!
     flash[:notice] = 'Plano inativado com sucesso'
     redirect_to root_path
-  end
-
-  def buy
-    @plan = Plan.find(params[:id])
-    @customer = Customer.find_by(token: session[:token])
-    if @customer.nil?
-      render 'show'
-    else
-      @customer.hire_plan!(@plan)
-      redirect_to CLASSROOM_URL_APP
-    end
   end
 
   private

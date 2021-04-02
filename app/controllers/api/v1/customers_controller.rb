@@ -22,6 +22,20 @@ module Api
         end
       end
 
+      def status
+        customer = Customer.find_by(token: params[:token])
+        if customer.nil?
+          return render json: { message: 'Token não encontrado' }.to_json,
+                        status: :not_found
+        end
+        plans_keys = %i[id name monthly_rate monthly_class_limit
+                        description status]
+        category_keys = %i[id name responsible_teacher]
+
+        render json: status_json(customer, plans_keys, category_keys).to_json,
+               status: :ok
+      end
+
       private
 
       def allowed_params
@@ -29,9 +43,19 @@ module Api
           name: params[:name],
           cpf: params[:cpf],
           birthdate: params[:birthdate],
-          payment_method: params[:payment_method],
           email: params[:email],
           token: Customer.generate_token
+        }
+      end
+
+      def status_json(customer, plans_keys, category_keys)
+        {
+          token: customer.token,
+          plan: customer.enrollment.plan.slice(plans_keys),
+          categories: customer.enrollment.plan.class_categories
+                              .map { |item| item.slice(category_keys) },
+          enrolled_at: customer.enrollment.updated_at.strftime('%d/%m/%Y'),
+          status: customer.enrollment.status
         }
       end
     end

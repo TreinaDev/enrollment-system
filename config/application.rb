@@ -34,5 +34,9 @@ module EnrollmentSystem
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # External Domains API
+    config.api = config_for(:api)
+    config.external = config_for(:external)
   end
 end

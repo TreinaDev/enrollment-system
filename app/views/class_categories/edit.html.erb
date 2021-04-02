@@ -1,6 +1,7 @@
 <% if flash[:notice] %>
   <div>
     <% if @class_category.errors.any? %>
+    <% render partial: 'shared/display_errors', locals: { model: @class_category } %>
       <% @class_category.errors.full_messages.each do |m| %>
         <p> <%= m %> </p>
       <% end %>
@@ -8,20 +9,4 @@
   </div>
 <% end %>
 <h1> Editar categoria de aula - <%= @class_category.name %></h1>
-<%= form_with model: @class_category do |f| %>
-  <div>
-    <%= f.label :description %>
-    <%= f.text_field :description %>
-  </div>
-  <div>
-    <%= f.label :responsible_teacher %>
-    <%= f.select :responsible_teacher, @responsible_teachers %>
-  </div>
-  <div>
-    <%= f.label 'Ícone da categoria' %>
-    <%= f.file_field :icon %>
-  </div>
-  <div>
-    <%= f.submit 'Editar Categoria de Aula' %>
-  </div>
-<% end %>
+<%= render partial: 'form', locals: { btn_action: 'Editar Categoria de Aula' }%>

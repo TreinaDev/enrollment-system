@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Customer choose a plan' do
+feature 'Customer see all plans' do
   scenario 'successfully' do
     user = User.create!(email: 'renata@smartflix.com.br', password: '123456',
                         role: :admin)
@@ -16,20 +16,18 @@ feature 'Customer choose a plan' do
     visit root_path
 
     within("div#plan-#{first_plan.id}") do
-      expect(page).to have_content('Nome: ')
       expect(page).to have_content(first_plan.name)
       expect(page).to have_content('Mensalidade: ')
-      expect(page).to have_content(first_plan.monthly_rate)
+      expect(page).to have_content('R$ 200,00')
       expect(page).to have_content('Quantidade de aulas por mês: ')
       expect(page).to have_content(first_plan.monthly_class_limit)
       expect(page).to have_content('Aulas abrangidas:')
       expect(page).to have_content('Yoga')
     end
     within("div#plan-#{second_plan.id}") do
-      expect(page).to have_content('Nome:')
       expect(page).to have_content(second_plan.name)
       expect(page).to have_content('Mensalidade:')
-      expect(page).to have_content(second_plan.monthly_rate)
+      expect(page).to have_content('R$ 300,00')
       expect(page).to have_content('Quantidade de aulas por mês:')
       expect(page).to have_content(second_plan.monthly_class_limit)
     end
@@ -61,15 +59,151 @@ feature 'Customer choose a plan' do
     visit root_path
 
     within("div#plan-#{plan.id}") do
-      expect(page).to have_content('Nome: ')
       expect(page).to have_content(plan.name)
       expect(page).to have_content('Mensalidade: ')
-      expect(page).to have_content(plan.monthly_rate)
+      expect(page).to have_content('R$ 200,00')
       expect(page).to have_content('Quantidade de aulas por mês: ')
       expect(page).to have_content(plan.monthly_class_limit)
-      expect(page).to have_content('Aulas abrangidas: ')
+      expect(page).to have_content('Aulas abrangidas:')
       expect(page).to have_content('Yoga')
     end
     expect(page).to have_content('Não é possível contratar planos agora')
+  end
+end
+
+feature 'Customer enroll a plan' do
+  scenario 'see the form' do
+    # Arrange
+    create(:customer, token: '123')
+    yoga = create(:class_category, name: 'Yoga')
+    plan = create(:plan, name: 'PlanoFit', monthly_rate: 200, monthly_class_limit: 5)
+    create(:class_category_plan, plan: plan, class_category: yoga)
+    ccred = PaymentMethod.new(name: 'Cartão de Crédito', code: 'CCRED')
+    allow(PaymentMethod).to receive(:all).and_return([ccred])
+
+    # Act
+    visit new_enrollment_path(token: '123', plan: plan.id)
+
+    # Assert
+    expect(page).to have_content(plan.name)
+    expect(page).to have_content(ccred.name)
+  end
+
+  scenario 'fill the form' do
+    # Arrange
+    customer = create(:customer, token: '123')
+    yoga = create(:class_category, name: 'Yoga')
+    plan = create(:plan, name: 'PlanoFit', monthly_rate: 200, monthly_class_limit: 5)
+    create(:class_category_plan, plan: plan, class_category: yoga)
+    ccred = PaymentMethod.new(name: 'Cartão de Crédito', code: 'CCRED')
+    allow(PaymentMethod).to receive(:all).and_return([ccred])
+
+    response = double('faraday_post', status: 200)
+    data = {
+      customer: customer.token,
+      monthly_rate: plan.monthly_rate,
+      payment_method: ccred.code
+    }
+    domain = Rails.configuration.api['payment_fraud']
+    allow(Faraday).to receive(:post).with("#{domain}/approve_payment", params: data)
+                                    .and_return(response)
+
+    class_domain = Rails.configuration.api['classroom_app']
+    allow_any_instance_of(ActionController::Redirecting).to receive(:redirect_to).and_return(class_domain)
+    # Act
+    visit new_enrollment_path(token: '123', plan: plan.id)
+    choose plan.name
+    choose ccred.name
+
+    click_on 'Comprar Plano'
+
+    # Assert
+    expect(Enrollment.count).to eq(1)
+  end
+
+  scenario 'fields are required' do
+    # Arrange
+    customer = create(:customer, token: '123')
+    yoga = create(:class_category, name: 'Yoga')
+    plan = create(:plan, name: 'PlanoFit', monthly_rate: 200, monthly_class_limit: 5)
+    create(:class_category_plan, plan: plan, class_category: yoga)
+    ccred = PaymentMethod.new(name: 'Cartão de Crédito', code: 'CCRED')
+    allow(PaymentMethod).to receive(:all).and_return([ccred])
+
+    # Act
+    visit new_enrollment_path(token: customer.token)
+    click_on 'Comprar Plano'
+
+    # Assert
+    expect(page).to have_content(plan.name)
+    expect(page).to have_content(ccred.name)
+    expect(page).to have_text 'Plano é obrigatório'
+    expect(page).to have_text 'Método de pagamento não pode ficar em branco'
+  end
+
+  context 'enrollment is sent to payment api' do
+    scenario 'success' do
+      # Arrange
+      customer = create(:customer, token: '123')
+      yoga = create(:class_category, name: 'Yoga')
+      plan = create(:plan, name: 'PlanoFit', monthly_rate: 200, monthly_class_limit: 5)
+      create(:class_category_plan, plan: plan, class_category: yoga)
+      ccred = PaymentMethod.new(name: 'Cartão de Crédito', code: 'CCRED')
+      allow(PaymentMethod).to receive(:all).and_return([ccred])
+      class_domain = Rails.configuration.api['classroom_app']
+      allow_any_instance_of(ActionController::Redirecting).to receive(:redirect_to).and_return(class_domain)
+
+      response = double('faraday_post', status: 200)
+      data = {
+        customer: customer.token,
+        monthly_rate: plan.monthly_rate,
+        payment_method: ccred.code
+      }
+      domain = Rails.configuration.api['payment_fraud']
+      allow(Faraday).to receive(:post).with("#{domain}/approve_payment",
+                                            params: data).and_return(response)
+
+      # Act
+      visit new_enrollment_path(token: '123', plan: plan.id)
+      choose plan.name
+      choose ccred.name
+      click_on 'Comprar Plano'
+
+      # Assert
+      enrollment = Enrollment.last
+      expect(enrollment.status).to eq('active')
+    end
+
+    scenario 'pending if payment api fails' do
+      # Arrange
+      customer = create(:customer, token: '123')
+      yoga = create(:class_category, name: 'Yoga')
+      plan = create(:plan, name: 'PlanoFit', monthly_rate: 200, monthly_class_limit: 5)
+      create(:class_category_plan, plan: plan, class_category: yoga)
+      ccred = PaymentMethod.new(name: 'Cartão de Crédito', code: 'CCRED')
+      allow(PaymentMethod).to receive(:all).and_return([ccred])
+
+      response = double('faraday_post', status: 404)
+      data = {
+        customer: customer.token,
+        monthly_rate: plan.monthly_rate,
+        payment_method: ccred.code
+      }
+      domain = Rails.configuration.api['payment_fraud']
+      allow(Faraday).to receive(:post).with("#{domain}/approve_payment",
+                                            params: data).and_return(response)
+      class_domain = Rails.configuration.api['classroom_app']
+      allow_any_instance_of(ActionController::Redirecting).to receive(:redirect_to).and_return(class_domain)
+
+      # Act
+      visit new_enrollment_path(token: '123', plan: plan.id)
+      choose plan.name
+      choose ccred.name
+      click_on 'Comprar Plano'
+
+      # Assert
+      enrollment = Enrollment.last
+      expect(enrollment.status).to eq('pending')
+    end
   end
 end

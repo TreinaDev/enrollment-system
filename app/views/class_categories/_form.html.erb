@@ -1,0 +1,22 @@
+<%= form_with model: @class_category, class: 'form-group' do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_field :description, class: 'form-control' %>
+  </div>
+  <div>
+    <%= f.label :responsible_teacher %>
+    <%= f.select :responsible_teacher, @responsible_teachers, {}, class: 'custom-select' %>
+  </div>
+  <div>
+    <%= f.label 'Ícone da categoria' %>
+    <%= f.file_field :icon, class: 'form-control' %>
+  </div>
+  <div>
+    <br>
+    <%= f.submit btn_action, class: 'btn btn-success' %>
+  </div>
+<% end %>

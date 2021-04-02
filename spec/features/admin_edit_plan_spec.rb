@@ -23,7 +23,7 @@ feature 'Admin edit a plan' do
     expect(current_path).to eq plan_path(plan)
     expect(page).to have_content('Nome: Fit')
     expect(page).to have_content('Descrição: Ideal para quem está começando')
-    expect(page).to have_content('Mensalidade: 9.99')
+    expect(page).to have_content('Mensalidade: R$ 9,99')
     expect(page).to have_content('Quantidade de aulas por mês: 20')
     expect(page).to have_content('Categorias de aulas: Crossfit')
   end
