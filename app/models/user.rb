@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   enum role: { user: 0, teacher: 5, admin: 10 }
 
+  validate :only_create_if_company_domain
+
   after_create :define_admin
 
   private
@@ -13,5 +15,10 @@ class User < ApplicationRecord
   def define_admin
     domain = email.split('@').last
     admin! if domain == 'smartflix.com.br'
+  end
+
+  def only_create_if_company_domain
+    domain = email.split('@').last
+    errors.add(:email, 'Apenas emails autorizados') unless domain == 'smartflix.com.br'
   end
 end
