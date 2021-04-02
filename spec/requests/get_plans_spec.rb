@@ -52,15 +52,15 @@ describe 'Get plans' do
     categories = [{ id: yoga.id, name: yoga.name },
                   { id: crossfit.id, name: crossfit.name }]
 
-    get '/api/v1/plans/123'
+    get '/api/v1/enrollments/123'
     json_response = JSON.parse(response.body, symbolize_names: true)
-
+    # byebug
     expect(response).to have_http_status(200)
-    expect(json_response[:name]).to eq plan_fit.name
-    expect(json_response[:description]).to eq plan_fit.description
-    expect(json_response[:monthly_class_limit]).to eq plan_fit.monthly_class_limit
-    expect(json_response[:monthly_rate]).to eq '9.99'
-    expect(json_response[:class_categories]).to eq categories
+    expect(json_response[:plan][:name]).to eq plan_fit.name
+    expect(json_response[:plan][:description]).to eq plan_fit.description
+    expect(json_response[:plan][:monthly_class_limit]).to eq plan_fit.monthly_class_limit
+    expect(json_response[:plan][:monthly_rate]).to eq '9.99'
+    expect(json_response[:plan][:class_categories]).to eq categories
   end
 
   it 'should return error if plan of the respective token dont exist' do
@@ -71,7 +71,7 @@ describe 'Get plans' do
                              monthly_class_limit: 10, class_categories: [yoga, crossfit])
     enrollment = create(:enrollment, customer: customer, plan: plan_fit, status: 10)
 
-    get '/api/v1/plans/123'
+    get '/api/v1/enrollments/123'
     json_response = JSON.parse(response.body, symbolize_names: true)
 
     expect(response).to have_http_status(200)
@@ -80,7 +80,7 @@ describe 'Get plans' do
   end
 
   it 'should return error if token does not exist' do
-    get '/api/v1/plans/123'
+    get '/api/v1/enrollments/123'
     json_response = JSON.parse(response.body, symbolize_names: true)
 
     expect(response).to have_http_status(404)

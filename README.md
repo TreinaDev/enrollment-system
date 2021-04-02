@@ -87,6 +87,86 @@ $ bundle exec rspec
 
 ## JSON :floppy_disk:
 
+### Rotas da API:
+#### Consulta de Planos
+##### GET /api/v1/plans
+**HTTP status:** 200
+```json
+[
+{
+"id": 1,
+"name": "Plano Smart",
+"monthly_rate": "150.0",
+"monthly_class_limit": 3,
+"description": "Ideal para iniciantes",
+"status": "active",
+"class_categories": [
+{
+"id": 1,
+"name": "Crossfit"
+}
+]
+},
+{
+"id": 2,
+"name": "Plano Fit",
+"monthly_rate": "200.0",
+"monthly_class_limit": 5,
+"description": "Para aqueles que querem entrar em forma",
+"status": "active",
+"class_categories": [
+{
+"id": 2,
+"name": "Yoga"
+},
+{
+"id": 1,
+"name": "Crossfit"
+}
+]
+}
+]
+```
+
+**HTTP status:** 404 - Nenhum plano encontrado
+```json
+"Não existem planos"
+```
+
+#### Consulta de Plano a Partir da Matrícula (token)
+##### GET /api/v1/enrollments/:token
+**HTTP status:** 200
+```json
+{
+"status": "active",
+"enrolled_at": "2021-04-01",
+"plan": {
+"id": 1,
+"name": "Plano Smart",
+"monthly_rate": "150.0",
+"monthly_class_limit": 3,
+"description": "Ideal para iniciantes",
+"status": "active",
+"class_categories": [
+{
+"id": 1,
+"name": "Crossfit"
+}
+]
+}
+}
+```
+
+**HTTP status:** 404 - Token inválido
+```json
+"Token não encontrado"
+```
+
+**HTTP status:** 200 - Cliente sem matrícula ativa
+```json
+"Aluno não tem um plano vinculado"
+```
+
 ### Usuários: 
 
 |name|email|password|

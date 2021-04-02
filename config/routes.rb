@@ -16,6 +16,10 @@ Rails.application.routes.draw do
     namespace 'v1' do
       resources :customers, :only => %i[ create show ]
       resources :plans, :only => %i[ index show ]
+      
+      resources :enrollments, :only => %i[ show ] do
+      end
+
     end
   end
 end
