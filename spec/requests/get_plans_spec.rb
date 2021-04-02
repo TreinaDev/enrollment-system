@@ -74,7 +74,7 @@ describe 'Get plans' do
     get '/api/v1/enrollments/123'
     json_response = JSON.parse(response.body, symbolize_names: true)
 
-    expect(response).to have_http_status(200)
+    expect(response).to have_http_status(406)
     expect(json_response[:msg]).to eq 'Aluno não tem um plano vinculado'
     expect(enrollment.status).to eq 'inactive'
   end

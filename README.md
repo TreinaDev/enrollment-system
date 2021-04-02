@@ -162,7 +162,7 @@ $ bundle exec rspec
 "Token não encontrado"
 ```
 
-**HTTP status:** 200 - Cliente sem matrícula ativa
+**HTTP status:** 406 - Cliente sem matrícula ativa
 ```json
 "Aluno não tem um plano vinculado"
 ```

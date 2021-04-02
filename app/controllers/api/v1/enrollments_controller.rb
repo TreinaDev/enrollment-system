@@ -6,14 +6,14 @@ module Api
         return render status: :not_found, json: '{"msg":"Token não encontrado"}' if customer.nil?
 
         enrollment = Enrollment.find_by(customer_id: customer.id)
-        return render status: :ok, json: '{"msg": "Aluno não tem um plano vinculado" }' if enrollment.inactive?
+        if enrollment.inactive?
+          return render status: :not_acceptable, json: '{"msg": "Aluno não tem um plano vinculado" }'
+        end
 
-        render json: enrollment.as_json(only: %i[status enrolled_at],
-                                        include: {
-                                          plan: { except: %i[created_at updated_at],
-                                                  include:
-                                          { class_categories: { only: %i[id name] } } }
-                                        }), status: :ok
+        render json: enrollment.as_json(only: %i[status enrolled_at], include: { plan: {
+                                          except: %i[created_at
+                                                     updated_at], include: { class_categories: { only: %i[id name] } }
+                                        } }), status: :ok
       end
     end
   end
