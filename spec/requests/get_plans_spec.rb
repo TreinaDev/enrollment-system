@@ -40,12 +40,14 @@ describe 'Get plans' do
   end
 
   it 'should return plan of the respective token' do
+    ccred = PaymentMethod.new(name: 'Cartão de Crédito', code: 'CCRED')
+    allow(PaymentMethod).to receive(:all).and_return([ccred])
     customer = create(:customer, token: '123')
     yoga = create(:class_category, name: 'Yoga', description: 'Balanço e flexibilidade')
     crossfit = create(:class_category, name: 'Crossfit')
     plan_fit = create(:plan, name: 'Fit', description: 'Ideal para quem está começando', monthly_rate: 9.99,
                              monthly_class_limit: 10, class_categories: [yoga, crossfit])
-    create(:enrollment, customer: customer, plan: plan_fit)
+    create(:enrollment, customer: customer, plan: plan_fit, payment_method: ccred)
 
     create(:plan, class_categories: [yoga])
 
@@ -64,12 +66,14 @@ describe 'Get plans' do
   end
 
   it 'should return error if plan of the respective token dont exist' do
+    ccred = PaymentMethod.new(name: 'Cartão de Crédito', code: 'CCRED')
+    allow(PaymentMethod).to receive(:all).and_return([ccred])
     customer = create(:customer, token: '123')
     yoga = create(:class_category, name: 'Yoga', description: 'Balanço e flexibilidade')
     crossfit = create(:class_category, name: 'Crossfit')
     plan_fit = create(:plan, name: 'Fit', description: 'Ideal para quem está começando', monthly_rate: 9.99,
                              monthly_class_limit: 10, class_categories: [yoga, crossfit])
-    enrollment = create(:enrollment, customer: customer, plan: plan_fit, status: 10)
+    enrollment = create(:enrollment, customer: customer, plan: plan_fit, status: 'inactive', payment_method: ccred)
 
     get '/api/v1/enrollments/123'
     json_response = JSON.parse(response.body, symbolize_names: true)
