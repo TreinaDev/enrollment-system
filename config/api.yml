@@ -1,0 +1,8 @@
+development:
+  classroom_app: 'http://localhost:3000/api/v1'
+  payment_fraud: 'http://localhost:5000/api/v1'
+
+test:
+  classroom_app: 'http://localhost:3000/api/v1'
+  payment_fraud: 'http://localhost:5000/api/v1'
+  

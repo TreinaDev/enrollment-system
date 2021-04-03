@@ -5,7 +5,7 @@ feature 'Customer cancels enrollment' do
     ccred = PaymentMethod.new(name: 'Cartão de Crédito', code: 'CCRED')
     allow(PaymentMethod).to receive(:all).and_return([ccred])
     customer = create(:customer, token: '123')
-    create(:enrollment, status: 'active', customer: customer)
+    create(:enrollment, status: 'active', customer: customer, payment_method: ccred)
 
     login_as customer, scope: :customer
     visit root_path(token: customer.token)
@@ -21,7 +21,7 @@ feature 'Customer cancels enrollment' do
     ccred = PaymentMethod.new(name: 'Cartão de Crédito', code: 'CCRED')
     allow(PaymentMethod).to receive(:all).and_return([ccred])
     customer = create(:customer, token: '123')
-    create(:enrollment, status: 'inactive', customer: customer)
+    create(:enrollment, status: 'inactive', customer: customer, payment_method: ccred)
 
     login_as customer, scope: :customer
     visit root_path(token: customer.token)

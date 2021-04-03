@@ -81,23 +81,4 @@ feature 'Admin create class category' do
     expect(page).not_to have_content('Cadastrar nova Categoria de Aula')
     expect(page).to have_content('Não podemos cadastrar esta categoria no momento')
   end
-
-  scenario 'and only admin can create class categories' do
-    allow(PaymentMethod).to receive(:all).and_return([])
-    user = create(:user, email: 'julia@flix.com.br')
-    login_as user
-    visit root_path
-
-    expect(page).not_to have_content('Cadastrar Categoria de Aulas')
-  end
-
-  scenario 'and common user cannot access from path' do
-    allow(PaymentMethod).to receive(:all).and_return([])
-    user = create(:user, email: 'julia@flix.com.br')
-    login_as user
-
-    visit class_categories_path
-
-    expect(current_path).to eq root_path
-  end
 end

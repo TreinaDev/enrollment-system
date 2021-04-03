@@ -3,7 +3,7 @@ feature 'Customer views account details' do
     ccred = PaymentMethod.new(name: 'Cartão de Crédito', code: 'CCRED')
     allow(PaymentMethod).to receive(:all).and_return([ccred])
     customer = create(:customer, name: 'Maria', token: '123')
-    enrollment = create(:enrollment, status: 'active', customer: customer)
+    enrollment = create(:enrollment, status: 'active', customer: customer, payment_method: ccred)
 
     login_as customer, scope: :customer
     visit root_path(token: customer.token)
