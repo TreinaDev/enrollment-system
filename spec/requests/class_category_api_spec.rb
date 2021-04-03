@@ -26,7 +26,7 @@ describe 'Class Category API' do
 
   context '#index' do
     it 'succesfully' do
-      create(:class_category)
+      create(:class_category, name: 'Crossfit')
       create(:class_category, name: 'Yoga', description: 'Aula zen', responsible_teacher: 'Mudra')
       create(:class_category, name: 'Boxe', description: 'Soco soco, bate bate', responsible_teacher: 'Popó')
 

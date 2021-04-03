@@ -1,6 +1,6 @@
 class Customer < ApplicationRecord
-  validates :email, :name, :birthdate, :payment_method, presence: true
-  validates :cpf, presence: true, uniqueness: true
+  validates :email, :name, :birthdate, presence: true
+  validates :cpf, presence: true, uniqueness: { case_sensitive: false }
   validates :token, presence: true, uniqueness: true
   has_one :enrollment, dependent: :restrict_with_error
 
@@ -20,9 +20,9 @@ class Customer < ApplicationRecord
       errors.add :customer, message: 'A matrícula não pode ser efetivada\
                                         poque o CPF informado está bloqueado'
     elsif enrollment
-      enrollment.update(plan: plan)
+      enrollment.update(plan: plan, enrolled_at: Time.zone.today)
     else
-      create_enrollment(plan: plan)
+      create_enrollment(plan: plan, enrolled_at: Time.zone.today)
     end
   end
 

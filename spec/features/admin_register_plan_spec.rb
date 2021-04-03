@@ -16,7 +16,9 @@ feature 'Admin register a plan' do
     fill_in 'Quantidade de aulas por mês', with: '10'
     check 'Crossfit'
     check 'Yoga'
-    click_on 'Cadastrar Plano'
+    within('div.container') do
+      click_on 'Cadastrar Plano'
+    end
 
     plan = Plan.last
     expect(current_path).to eq plan_path(plan)
@@ -45,7 +47,7 @@ feature 'Admin register a plan' do
     expect(current_path).to eq plan_path(plan)
     expect(page).to have_text 'Nome: Fit'
     expect(page).to have_text 'Descrição: Ideal para quem está começando'
-    expect(page).to have_text 'Mensalidade: 9.99'
+    expect(page).to have_text 'Mensalidade: R$ 9,99'
     expect(page).to have_text 'Quantidade de aulas por mês: 10'
     expect(page).to have_text 'Categorias de aulas: Crossfit, Yoga'
   end
@@ -61,7 +63,9 @@ feature 'Admin register a plan' do
     fill_in 'Descrição', with: ''
     fill_in 'Mensalidade', with: ''
     fill_in 'Quantidade de aulas por mês', with: ''
-    click_on 'Cadastrar Plano'
+    within('div.container') do
+      click_on 'Cadastrar Plano'
+    end
 
     expect(Plan.count).to eq 0
     expect(page).to have_content('Nome não pode ficar em branco')

@@ -19,6 +19,12 @@ pt-BR:
         description: Descrição
         responsible_teacher: Professor Responsável
         icon: Ícone da categoria
+      enrollment:
+        payment_method: Método de pagamento
+        plan: Plano
+        customer: Aluno
+        
+  # views      
   class_categories:
     new:
       error: 'Não podemos cadastrar esta categoria no momento'
@@ -33,3 +39,8 @@ pt-BR:
       error: 'Nenhuma categoria de aula encontrada'
     show:
       error: 'Categoria de aula não encontrada'
+  enrollments:
+    index:
+      active: Ativo
+      pending: Pendente
+      inactive: Inativo
