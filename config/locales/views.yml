@@ -6,3 +6,8 @@ pt-BR:
       monthly_class_limit: 'Quantidade de aulas por mês'
       description: 'Descrição'
       class_categories: 'Categorias de aulas'
+  enrollments:
+    show:
+      inactive: Inativa
+      active: Ativa
+      pending: Pendente
