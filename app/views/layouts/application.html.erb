@@ -55,4 +55,11 @@
       <%= yield %>
     </div>
   </body>
+
+  <nav>
+    <% if @customer && @customer.enrollment %>
+      <%= link_to 'Ver Matrícula', enrollment_path(@customer.enrollment) %>
+    <% end %>
+  </nav>
+
 </html>

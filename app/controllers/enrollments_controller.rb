@@ -3,6 +3,17 @@ class EnrollmentsController < ApplicationController
     @enrollments = Enrollment.all
   end
 
+  def show
+    @enrollment = Enrollment.find(params[:id])
+    @customer = @enrollment.customer
+  end
+
+  def inactivate
+    @enrollment = Enrollment.find(params[:id])
+    @enrollment.inactive!
+    redirect_to @enrollment
+  end
+
   def new
     @enrollment = Enrollment.new
     @customer = Customer.find_by(token: params[:token])
