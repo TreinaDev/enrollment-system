@@ -1,0 +1,44 @@
+<%= form_with url: enrollments_path, method: :post do %>
+  <% label_tag :customer %>
+  <%= hidden_field_tag :customer, @customer.token %>
+
+  <h4>Escolha seu Plano</h4>
+  <div class="container">
+    <div class="row">
+      <% @plans.each do |plan| %>
+        <div class="col">
+          <div class="card" id="plan-<%= plan.id %>">
+            <div class="card-body">
+              <h5 class="card-title">
+
+                <%= radio_button_tag :plan, plan.id, plan.id.eql?(@selected_plan.to_i) %>
+                <%= label_tag "plan_#{plan.id}", plan.name %>
+              
+              </h5>
+              <p class="card-text"><%= plan.description %></p>
+              <p class="card-text">
+                <ul>
+                  <% plan.class_categories.each do |category| %>
+                    <li><%= category.name %></li>
+                  <% end %>
+                </ul>
+              </p>
+              <p class="card-text">Valor Mensal <%= number_to_currency(plan.monthly_rate) %></p>
+              <p class="card-text">Quantidade de Aulas <%= plan.monthly_class_limit %></p>
+            </div>
+          </div>
+        </div>
+      <% end %> 
+    </div>
+  </div>
+
+
+  <h4 class="mt-3">Formas de Pagamento</h4>
+  <% @payment_methods.each do |method| %>
+    <%= radio_button_tag :method, method.code %>
+    <%= label_tag "method_#{method.code}", method.name %>
+    <br>
+  <% end %>
+  <br>
+  <%= submit_tag 'Comprar Plano', class: 'btn btn-success' %>
+<% end %>

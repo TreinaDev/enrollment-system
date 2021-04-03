@@ -1,0 +1,28 @@
+<% unless @enrollments.blank? %>
+  <table class="table table-hover">
+    <thead>
+        <tr>
+          <th scope="col">Nome</th>
+          <th scope="col">Plano</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @enrollments.each do |enrollment| %>
+          <tr>
+            <td scope="row"> <%= enrollment.customer.name %> </td>
+            <td> <%= enrollment.plan.name %> </td>
+            <% if enrollment.status == 'active' %>
+              <td> <span class='badge badge-success'> <%= t(".#{enrollment.status}") %> </span> </td>
+            <% elsif enrollment.status == 'pending'  %>
+              <td> <span class='badge badge-primary'> <%= t(".#{enrollment.status}") %> </span> </td>
+            <% else %>
+              <td> <span class='badge badge-danger'> <%= t(".#{enrollment.status}") %> </span> </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+  </table>
+<% else %>
+<p>Nenhuma matrícula encontrada</p>
+<% end %>

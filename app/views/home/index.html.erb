@@ -1,35 +1,37 @@
 <% if @plans.empty? %>
   <p> Não há planos cadastrados </p>
 <% else %>
-  <% @plans.each do |plan| %>
-    <div id="plan-<%= plan.id %>">
-      <dl>
-        <dt>Nome:</dt>
-        <dd><%= link_to plan.name, plan_path(plan) %></dd>
-        <dt>Mensalidade:</dt>
-        <dd><%= plan.monthly_rate %></dd>
-        <dt>Quantidade de aulas por mês:</dt>
-        <dd><%= plan.monthly_class_limit %></dd>
-        <dt>Aulas abrangidas:</dt>
-        <% plan.class_categories.each do |cc| %>
-          <dd><%= cc.name %></dd>
-        </div>
-      </dl>
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    <% @plans.each do |plan| %>
+      <div class="col">
+        <div class="card" id="plan-<%= plan.id %>">
+          <div class="card-body">
+            <h5 class="card-title"><%= link_to plan.name, plan_path(plan) %></h5>
+            <p class="card-text"><%= plan.description %></p>
+            <p class="card-text">Mensalidade: <%= number_to_currency(plan.monthly_rate) %></p>
+            <p class="card-text">Quantidade de aulas por mês: <%= plan.monthly_class_limit %></p>
+            <p class="card-text">Aulas abrangidas:
+              <ul>
+                <% plan.class_categories.each do |cc| %>
+                  <li><%= cc.name %></li>
+                <% end %>
+              </ul>
+            </p>
+          </div>
+        </div>  
+      </div>
     <% end %>
-  <% end %>
-  <% if @payment_methods.any? %>
-    <p>Meios de pagamentos:</p>
+  </div>
+<% end %>
+
+<% if @payment_methods.any? %>
+  <h3 class="mt-2">Meios de pagamentos:</h3>
+  <ul>
     <% @payment_methods.each do |pm| %>
-      <%= pm.name %>
+      <li><%= pm.name %></li>
     <% end %>
-  <% else %>
-    <p> Não é possível contratar planos agora </p>
-  <% end %>
+  </ul>
+<% else %>
+  <p> Não é possível contratar planos agora </p>
 <% end %>
-<% if user_signed_in? && current_user.admin? %>
-  <%= link_to 'Cadastrar Categoria de Aulas', new_class_category_path %>
-  <%= link_to 'Categorias de Aula', class_categories_path %>
 
-  <%= link_to 'Cadastrar Plano', new_plan_path %>
-
-<% end %>

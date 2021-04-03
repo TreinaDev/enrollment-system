@@ -37,5 +37,6 @@ module EnrollmentSystem
 
     # External Domains API
     config.api = config_for(:api)
+    config.external = config_for(:external)
   end
 end
