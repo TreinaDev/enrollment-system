@@ -1,9 +1,3 @@
-<% if flash[:notice] %>
-  <div>
-    <% if @class_category.errors.any? %>
-      <%= render partial: "shared/display_errors", locals: { model: @class_category } %>
-    <% end %>
-  </div>
-<% end %>
+<%= render partial: "shared/display_errors", locals: { model: @class_category } %>
 <h1> Cadastrar categoria de aula </h1>
 <%= render partial: 'form', locals: { btn_action: 'Cadastrar nova Categoria de Aula' }%>

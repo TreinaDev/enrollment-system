@@ -1,6 +1,4 @@
 <h1>Cadastro de Plano</h1>
-<% if @plan.errors.any? %>
-  <%= render partial: "shared/display_errors", locals: { model: @plan } %>
-<% end %>
+<%= render partial: "shared/display_errors", locals: { model: @plan } %>
 
 <%= render partial: 'form', locals: { btn_action: 'Cadastrar Plano' } %>

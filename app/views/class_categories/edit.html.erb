@@ -1,12 +1,4 @@
-<% if flash[:notice] %>
-  <div>
-    <% if @class_category.errors.any? %>
-    <% render partial: 'shared/display_errors', locals: { model: @class_category } %>
-      <% @class_category.errors.full_messages.each do |m| %>
-        <p> <%= m %> </p>
-      <% end %>
-    <% end %>
-  </div>
-<% end %>
+<%= render partial: 'shared/display_errors', locals: { model: @class_category } %>
+
 <h1> Editar categoria de aula - <%= @class_category.name %></h1>
 <%= render partial: 'form', locals: { btn_action: 'Editar Categoria de Aula' }%>

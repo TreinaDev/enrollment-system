@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    @plans = Plan.where('status == ?', 0)
+    @plans = Plan.active
     @payment_methods = PaymentMethod.all
   end
 end
