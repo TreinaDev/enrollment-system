@@ -6,6 +6,8 @@ class ClassCategoriesController < ApplicationController
     @class_categories = ClassCategory.all
   end
 
+  def show; end
+
   def edit; end
 
   def update
@@ -39,8 +41,6 @@ class ClassCategoriesController < ApplicationController
     end
   end
 
-  def show; end
-
   def destroy
     @class_category.destroy
     redirect_to class_categories_path, notice: t('.success')
@@ -49,7 +49,7 @@ class ClassCategoriesController < ApplicationController
   private
 
   def class_category_params
-    params.require(:class_category).permit(:name, :description, :responsible_teacher, :icon)
+    params.require(:class_category).permit(:name, :description, :responsible_teacher, :icon, :image_url)
   end
 
   def all_teachers

@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_005201) do
     t.datetime "updated_at", precision: 6, null: false
     t.text "description"
     t.string "responsible_teacher"
+    t.string "image_url"
     t.index ["description"], name: "index_class_categories_on_description", unique: true
     t.index ["name"], name: "index_class_categories_on_name", unique: true
   end
