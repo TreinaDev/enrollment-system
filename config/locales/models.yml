@@ -19,6 +19,12 @@ pt-BR:
         description: Descrição
         responsible_teacher: Professor Responsável
         icon: Ícone da categoria
+      enrollment:
+        payment_method: Método de pagamento
+        plan: Plano
+        customer: Aluno
+        
+  # views      
   class_categories:
     new:
       error: 'Não podemos cadastrar esta categoria no momento'

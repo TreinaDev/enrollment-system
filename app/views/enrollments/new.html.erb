@@ -1,0 +1,41 @@
+<h1>Comprar plano</h1>
+
+<% if @enrollment.errors.any? %>
+  <div>
+    <%= render partial: "shared/display_errors", locals: { model: @enrollment } %>
+  </div>
+<% end %>
+
+<%= form_with url: enrollments_path, method: :post do %>
+  <% label_tag :customer %>
+  <%= hidden_field_tag :customer, @customer.token %>
+
+  <h4>Escolha seu Plano</h4>
+  <% @plans.each do |plan| %>
+    <div>
+      <ul>
+        <% plan.class_categories.each do |category| %>
+          <li><%= category.name %></li>
+        <% end %>
+      </ul>
+      <%= label_tag "plan_#{plan.id}", plan.name %>
+
+      <% unless @selected_plan.nil? %>
+        <%= radio_button_tag :plan, plan.id, plan.id.eql?(@selected_plan.to_i) %>
+      <% else %>
+        <%= radio_button_tag :plan, plan.id %>
+      <% end %>
+      Valor Mensal <%= number_to_currency(plan.monthly_rate) %>
+      Quantidade de Aulas <%= plan.monthly_class_limit %>
+    </div>
+  <% end %>
+
+  <h4>Formas de Pagamento</h4>
+  <% @payment_methods.each do |method| %>
+    <%= label_tag "method_#{method.code}", method.name %>
+    <%= radio_button_tag :method, method.code %>
+    <br>
+  <% end %>
+  <br>
+  <%= submit_tag 'Comprar Plano', class: 'btn btn-success' %>
+<% end %>
