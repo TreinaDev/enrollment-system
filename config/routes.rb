@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   namespace 'api', defaults: { format: :json } do
     namespace 'v1' do
+      resources :class_categories, only: %i[ index show ]
       resources :customers, only: %i[ create show ] do
         get 'status', on: :collection
       end
