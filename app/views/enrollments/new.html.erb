@@ -1,10 +1,7 @@
 <h1>Comprar plano</h1>
 
-<% if @enrollment.errors.any? %>
-  <div>
-    <%= render partial: "shared/display_errors", locals: { model: @enrollment } %>
-  </div>
-<% end %>
+<%= render partial: "shared/display_errors", locals: { model: @enrollment } %>
+
 <% unless @customer.nil? %>
   <%= render partial: "form" %>
 <% else %>

@@ -1,0 +1,27 @@
+<%= form_with model: @plan, class: 'form-group' do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name, class: 'form-control' %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description , class: 'form-control'%>
+
+  <%= f.label :monthly_class_limit %>
+  <%= f.text_field :monthly_class_limit , class: 'form-control'%>
+
+  <%= f.label :monthly_rate %>
+  <%= f.number_field :monthly_rate , class: 'form-control'%>
+
+  <%= f.label :class_categories, class: 'form-check-label' %>
+
+
+  <%= f.collection_check_boxes(:class_category_ids, ClassCategory.all, :id, :name) do |c| %>
+  <div>
+      <%= c.check_box %>
+      <%= c.label %>
+  </div>
+  <% end %>
+
+  <br>
+  <%= f.submit btn_action, class: 'btn btn-success' %>
+
+<% end %>

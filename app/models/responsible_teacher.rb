@@ -6,7 +6,8 @@ class ResponsibleTeacher
   end
 
   def self.all
-    response = Faraday.get('classroom-app.com/v1/api/all')
+    domain = Rails.configuration.api['classroom_app']
+    response = Faraday.get("#{domain}/all")
 
     return [] if response.status == 400
 

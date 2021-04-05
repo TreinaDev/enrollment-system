@@ -5,7 +5,8 @@ describe ResponsibleTeacher do
     it 'should get all responsible teachers' do
       json = File.read(Rails.root.join('spec/support/apis/get_responsible_teachers.json'))
       response = double('faraday_response', body: json, status: 200)
-      allow(Faraday).to receive(:get).with('classroom-app.com/v1/api/all').and_return(response)
+      domain = Rails.configuration.api['classroom_app']
+      allow(Faraday).to receive(:get).with("#{domain}/all").and_return(response)
       responsible_teachers = ResponsibleTeacher.all
 
       expect(responsible_teachers.size).to eq 3
@@ -17,7 +18,8 @@ describe ResponsibleTeacher do
     it 'should return empty if bad request' do
       resp_double = double('faraday_resp', status: 400, body: '')
 
-      allow(Faraday).to receive(:get).with('classroom-app.com/v1/api/all').and_return(resp_double)
+      domain = Rails.configuration.api['classroom_app']
+      allow(Faraday).to receive(:get).with("#{domain}/all").and_return(resp_double)
       responsible_teachers = ResponsibleTeacher.all
 
       expect(responsible_teachers.length).to eq 0

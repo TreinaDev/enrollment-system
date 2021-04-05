@@ -1,26 +1,4 @@
 <h1>Cadastro de Plano</h1>
-<% if @plan.errors.any? %>
-  <% @plan.errors.full_messages.each do |error| %>
-    <p><%= error %></p>
-  <% end %>
-<% end %>
+<%= render partial: "shared/display_errors", locals: { model: @plan } %>
 
-<%= form_with model: @plan do |f| %>
-<%= f.label :name %>
-<%= f.text_field :name %>
-
-<%= f.label :description %>
-<%= f.text_area :description %>
-
-<%= f.label :monthly_class_limit %>
-<%= f.text_field :monthly_class_limit %>
-
-<%= f.label :monthly_rate %>
-<%= f.number_field :monthly_rate %>
-
-<%= f.label :class_category %>
-<%= f.collection_check_boxes :class_category_ids, ClassCategory.all, :id, :name %>
-
-<%= f.submit 'Cadastrar Plano' %>
-
-<% end %>
+<%= render partial: 'form', locals: { btn_action: 'Cadastrar Plano' } %>

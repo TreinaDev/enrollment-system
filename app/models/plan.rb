@@ -7,4 +7,8 @@ class Plan < ApplicationRecord
   validates :monthly_rate, :monthly_class_limit, numericality: { greater_than: 0 }
 
   enum status: { active: 0, inactive: 10 }
+
+  def self.active
+    Plan.where('status == ?', 0)
+  end
 end
